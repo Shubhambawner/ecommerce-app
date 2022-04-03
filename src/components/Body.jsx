@@ -6,7 +6,7 @@ import Card from './Card'
 
 export default function Body(props) {
     console.log(props.items, 'rrrrr')
-    if (!props.items || props.items.length == 0) {
+    if (!props.items || props.items.length <= 1) {
         props.itemLoader.loadAllItems()
         console.log('no items to show!')
     }
@@ -18,15 +18,21 @@ export default function Body(props) {
         } else return (<></>)
     })
     return (
-        <React.Fragment>
-            <CssBaseline />
-            <Container maxWidth="sm">
-                {cards}
-            </Container>
-        </React.Fragment>
-        // <div>Body<br/>
-        //     {cards}
-        // </div>
+        // <React.Fragment>
+        //     <CssBaseline />
+        //     <Container maxWidth="sm">
+        //         {cards}
+        //     </Container>
+        // </React.Fragment>
+        <div style={{display: "flex",
+            // flexDirection: "row",
+            flexWrap: "wrap",
+            alignContent: "center",
+            justifyContent: "center",
+            background: "#d9dbff"
+            }}>
+            {cards}
+        </div>
     )
 }
 

@@ -9,8 +9,14 @@ import imageSample from "../images/p1.png";
 
 export default function ImgMediaCard(props) {
   console.log(props.action)
+
+  let actionButton = (props.action.name=="Remove" || props.action.name=="Cancell Order" )
+  ? <Button size="small"  color="success" onClick={()=>{props.action.action(props.item)}}>{props.action.name}</Button>
+  : <Button size="small" onClick={()=>{props.action.action(props.item)}}>{props.action.name}</Button> 
+  
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{  width: "25vw" , margin:"1.5vw" }}>
       <CardMedia
         component="img"
         alt="green iguana"
@@ -28,7 +34,7 @@ export default function ImgMediaCard(props) {
       <CardActions>
         {props.item.status=="Cancelled"
         ?<>cancelled!<Button size="small" onClick={()=>{props.action2.action(props.item)}}>{props.action2.name}</Button></>
-        : <Button size="small" onClick={()=>{props.action.action(props.item)}}>{props.action.name}</Button>}
+        : actionButton}
       </CardActions>
     </Card>
   );
