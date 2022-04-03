@@ -20,11 +20,11 @@ function App(props) {
     addToCart.name = "Add to Cart"
     addToCart.action = (item) => {
         if (checkToken()) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.push(item)
             localStorage.setItem('cart', JSON.stringify(cart))
         }
         else props.auth()
-        console.log(cart)
     }
 
 
@@ -43,21 +43,21 @@ function App(props) {
             }
         }
         else props.auth()
-        console.log(cart)
     }
 
     
     let cancellOrder = {}
     cancellOrder.name = "Cancell Order"
-    cancellOrder.action = (item) => {
+    cancellOrder.action = async (item) => {
         let authToken = checkToken()
         if (!authToken) props.auth()
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", authToken);
 
+        console.log(item, '$$$$')
         var raw = JSON.stringify({
-            "orderId": item.orderId
+            "orderId": item.id
         });
 
         var requestOptions = {
@@ -67,7 +67,7 @@ function App(props) {
             redirect: 'follow'
         };
 
-        fetch("https://e-commerce.urownsite.xyz/orders/cancel", requestOptions)
+        await fetch("https://e-commerce.urownsite.xyz/orders/cancel", requestOptions)
             .then(response => response.json())
             .then(response => {
                 console.log(response, 'cansell req ka response');
@@ -75,7 +75,11 @@ function App(props) {
                     window.alert("order cancelled successfully")
                     itemLoader.loadHistory();
                 }
+                else if(response["status"] == "Order Not Found"){
+                    window.alert(`Order ${JSON.stringify(item)} Not Found`)
+                }
                 else {
+                    window.alert(`sOME ERROR OCCURED, PLEASE login AGAIN`)
                     props.auth()
                 }
             }).catch(error => console.log('error', error));
@@ -114,7 +118,7 @@ function App(props) {
     }
 
     itemLoader.loadAllItems = async function () {
-        if (allAvailableItems.length > 0) setItems(allAvailableItems);
+        if (allAvailableItems.length > 1) setItems(allAvailableItems);
         else {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -141,13 +145,17 @@ function App(props) {
         }
     }
 
+    itemLoader.loadCustomItems = async function (itemArray) {
+        setItems(itemArray);
+    }
+
 
     itemLoader.loadCart = async function () {
         if (!checkToken()) props.auth()
         let cart = JSON.parse(localStorage.getItem('cart'))
         let tempCart = [...cart, removeFromCart]
         console.log(tempCart, 'lll')
-        if (cart.length > 1) {
+        if (tempCart.length > 1) {
             setItems(tempCart);
         }
         else window.alert('cart is empty!')
@@ -156,12 +164,15 @@ function App(props) {
     itemLoader.placeOrders = async function () {
         if (!checkToken()) props.auth()
         let cart = JSON.parse(localStorage.getItem('cart'))
-        if (cart.length > 1) {
+        if (cart.length > 0) {
             let status = "Failed";
             for (let i = 0; i < cart.length; i++) {
                 status = await placeOneOrder.action(cart[i])
             }
             if (status == "Failed") window.alert(`no order placed!`)
+            let user = localStorage.getItem('user')
+            localStorage.clear()
+            localStorage.setItem('user', user)
             itemLoader.loadHistory();
         }
         else window.alert('cart is empty!')
@@ -190,7 +201,7 @@ function App(props) {
                 if (historyItems["status"] == "Success") {
                     historyItems = historyItems.data
                     historyItems = historyItems.map((item) => {
-                        return { ...item, ...item.product }
+                        return {  ...item.product, ...item }
                     })
                     console.log(historyItems, 'opopop');
                     historyItems.push(cancellOrder)
@@ -207,8 +218,17 @@ function App(props) {
         <div className="App">
             {/* <Header />
       <Login anchorButton="buy" action="log In" /> */}
-            <Header action={items.length > 0 ? items[items.length - 1] : addToCart} itemLoader={itemLoader} auth={() => { props.auth() }} />
-            <Body items={items} itemLoader={itemLoader} action={items.length > 0 ? items[items.length - 1] : addToCart} auth={() => { props.auth() }} />
+            <Header 
+            action={items.length > 0 ? items[items.length - 1] : addToCart}  
+            itemLoader={itemLoader} auth={() => { props.auth() }} 
+            items={items} 
+            />
+            <Body 
+            items={items} itemLoader={itemLoader} 
+            action={items.length > 0 ? items[items.length - 1] : addToCart} 
+            action2={addToCart}
+            auth={() => { props.auth() }} 
+            />
             <Footer auth={() => { props.auth() }} />
         </div>
     );
