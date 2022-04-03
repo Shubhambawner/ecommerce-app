@@ -26,6 +26,8 @@ function App(props) {
         else props.auth()
         console.log(cart)
     }
+
+
     let removeFromCart = {}
     removeFromCart.name = "Remove"
     removeFromCart.action = (item) => {
@@ -43,6 +45,8 @@ function App(props) {
         else props.auth()
         console.log(cart)
     }
+
+    
     let cancellOrder = {}
     cancellOrder.name = "Cancell Order"
     cancellOrder.action = (item) => {
@@ -82,7 +86,31 @@ function App(props) {
     placeOneOrder.action = async function (item) {
         let authToken = checkToken()
         if (!authToken) props.auth()
-        
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", authToken);
+
+        var raw = JSON.stringify({
+            "productId": item.id //this is NOT id of the order item from order history, but one from get all products
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("https://e-commerce.urownsite.xyz/orders/place", requestOptions)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response, 'place order req ka response');
+            if (response["status"] == "Success") {
+                console.log("order placed successfully")
+                // itemLoader.loadHistory();
+            }
+            return response['status']
+        }).catch(error => console.log('error', error));
     }
 
     itemLoader.loadAllItems = async function () {

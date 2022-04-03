@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import imageSample from "../images/p1.png"
+import imageSample from "../images/p1.png";
 
 export default function ImgMediaCard(props) {
   console.log(props.action)
@@ -26,7 +26,7 @@ export default function ImgMediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={()=>{props.action.action(props.item)}}>{props.action.name}</Button>
+        {props.item.status=="Cancelled"?<></>: <Button size="small" onClick={()=>{props.action.action(props.item)}}>{props.action.name}</Button>}
       </CardActions>
     </Card>
   );
