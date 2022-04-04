@@ -220,15 +220,17 @@ function App(props) {
       <Login anchorButton="buy" action="log In" /> */}
             <Header 
             action={items.length > 0 ? items[items.length - 1] : addToCart}  
-            itemLoader={itemLoader} auth={() => { props.auth() }} 
+            itemLoader={itemLoader} 
+            auth={() => { props.auth() }} 
             items={items} 
+            addToCart={addToCart}
             />
-            <Body 
+            {/* <Body 
             items={items} itemLoader={itemLoader} 
             action={items.length > 0 ? items[items.length - 1] : addToCart} 
             action2={addToCart}
             auth={() => { props.auth() }} 
-            />
+            /> */}
             <Footer auth={() => { props.auth() }} />
         </div>
     );

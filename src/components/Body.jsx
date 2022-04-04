@@ -29,7 +29,9 @@ export default function Body(props) {
             flexWrap: "wrap",
             alignContent: "center",
             justifyContent: "center",
-            background: "#d9dbff"
+            background: "#d9dbff",
+            width: "-webkit-fill-available",
+            "paddingTop":50
             }}>
             {cards}
         </span>

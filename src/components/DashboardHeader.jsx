@@ -25,7 +25,7 @@ import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCh
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-
+import Body from './Body'
 
 const drawerWidth = 240;
 
@@ -183,7 +183,16 @@ export default function DashboardHeader(props) {
 
                     </List>
                 </Drawer>
-                        <div >efgohuwoegisgvihoweihgoihoeriji era areeh erh</div>
+                
+                <Body 
+            items={props.items} itemLoader={props.itemLoader} 
+            action={props.items.length > 0 ? props.items[props.items.length - 1] : props.addToCart} 
+            action2={props.addToCart}
+            auth={() => { props.auth() }} 
+            />
+
+
+
             </Box>
         
     );
