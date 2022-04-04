@@ -23,6 +23,7 @@ function App(props) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.push(item)
             document.querySelector('#root > div > div > div > div > div > nav > div:nth-child(2) > div.MuiListItemIcon-root.css-cveggr-MuiListItemIcon-root > span > span').innerText++
+            window.alert(`${item.title?item.title:"item"} added to cart, you can checkout now`)
             localStorage.setItem('cart', JSON.stringify(cart))
         }
         else props.auth()
@@ -40,6 +41,7 @@ function App(props) {
             else {
                 localStorage.setItem('cart', JSON.stringify(cart))
                 let tempCart = [...cart, removeFromCart]
+                window.alert(`item ${JSON.stringify(item).title?JSON.stringify(item).title:""} removed!`)
                 setItems(tempCart);
             }
         }
@@ -154,6 +156,7 @@ function App(props) {
     itemLoader.loadCart = async function () {
         if (!checkToken()) props.auth()
         let cart = JSON.parse(localStorage.getItem('cart'))
+        if(!cart || !cart.length) window.alert("cart is empty")
         let tempCart = [...cart, removeFromCart]
         console.log(tempCart, 'lll')
         if (tempCart.length > 1) {
@@ -171,6 +174,7 @@ function App(props) {
                 status = await placeOneOrder.action(cart[i])
             }
             if (status == "Failed") window.alert(`no order placed!`)
+            else window.alert(`Order for all items in the cart placed successfully!`)
             let user = localStorage.getItem('user')
             localStorage.clear()
             localStorage.setItem('user', user)

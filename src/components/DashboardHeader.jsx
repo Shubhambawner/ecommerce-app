@@ -122,13 +122,15 @@ export default function DashboardHeader(props) {
                         >
                             <MenuIcon />
                         </IconButton>
-                         <CardMedia
+                        <div style={{display: "flex",
+    alignItems: "center"}}>{window.innerWidth>450?
+                         <CardMedia style={{height: "42px",
+    width: "200px"}}
         component="img"
         alt="logo"
-        height= "42px"
-    width= "200px"
+        
     image={logo}
-      />
+      />:<></>}
                         <Typography
                             component="h1"
                             variant="h6"
@@ -139,6 +141,8 @@ export default function DashboardHeader(props) {
                            
                             {DashboardHeaderName}
                         </Typography>
+                        </div>
+                        <div style={{width:"-webkit-fill-available"}}></div>
                         <IconButton color="inherit" onClick={() => {entryFunction()}}>
                             
                                 {entryIcon}
@@ -174,7 +178,7 @@ export default function DashboardHeader(props) {
                             </ListItemButton>
                             <ListItemButton onClick={() => { props.itemLoader.loadCart() }}>
                                 <ListItemIcon>
-                            <Badge badgeContent={localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')).length:0} color="secondary">
+                            <Badge badgeContent={localStorage.getItem('user')?(JSON.parse(localStorage.getItem('cart'))?localStorage.getItem('cart').length:0):'0'} color="secondary">
                                     <ShoppingCartIcon />
                             </Badge>
                                 </ListItemIcon>
