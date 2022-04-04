@@ -5,10 +5,10 @@ import Container from '@mui/material/Container';
 import Card from './Card'
 
 export default function Body(props) {
-    console.log(props.items, 'rrrrr')
+    // console.log(props.items, 'rrrrr')
     if (!props.items || props.items.length <= 1) {
         props.itemLoader.loadAllItems()
-        console.log('no items to show!')
+        // console.log('no items to show!')
     }
     let cards = props.items.map((item) => {
         if (item.title) {
