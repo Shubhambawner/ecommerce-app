@@ -22,6 +22,7 @@ function App(props) {
         if (checkToken()) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.push(item)
+            document.querySelector('#root > div > div > div > div > div > nav > div:nth-child(2) > div.MuiListItemIcon-root.css-cveggr-MuiListItemIcon-root > span > span').innerText++
             localStorage.setItem('cart', JSON.stringify(cart))
         }
         else props.auth()

@@ -27,6 +27,10 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 import Body from './Body'
 
+import logo from '../images/logo.png'
+import CardMedia from '@mui/material/CardMedia';
+
+
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -118,6 +122,13 @@ export default function DashboardHeader(props) {
                         >
                             <MenuIcon />
                         </IconButton>
+                         <CardMedia
+        component="img"
+        alt="logo"
+        height= "42px"
+    width= "200px"
+    image={logo}
+      />
                         <Typography
                             component="h1"
                             variant="h6"
@@ -125,12 +136,13 @@ export default function DashboardHeader(props) {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
+                           
                             {DashboardHeaderName}
                         </Typography>
                         <IconButton color="inherit" onClick={() => {entryFunction()}}>
-                            <Badge badgeContent={4} color="secondary">
+                            
                                 {entryIcon}
-                            </Badge>
+                            
                         </IconButton>
 
                     </Toolbar>
@@ -152,7 +164,7 @@ export default function DashboardHeader(props) {
                         </IconButton>
                     </Toolbar>
                     <Divider />
-                    <List component="nav" style={{height: "100vh", width:300}}>
+                    <List component="nav" style={{height: "100vh"}}>
                         <React.Fragment>
                             <ListItemButton onClick={() => { props.itemLoader.loadAllItems() }}>
                                 <ListItemIcon>
@@ -162,7 +174,9 @@ export default function DashboardHeader(props) {
                             </ListItemButton>
                             <ListItemButton onClick={() => { props.itemLoader.loadCart() }}>
                                 <ListItemIcon>
+                            <Badge badgeContent={localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')).length:0} color="secondary">
                                     <ShoppingCartIcon />
+                            </Badge>
                                 </ListItemIcon>
                                 <ListItemText primary="Cart" />
                             </ListItemButton >

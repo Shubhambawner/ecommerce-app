@@ -16,7 +16,7 @@ export default function ImgMediaCard(props) {
   
 
   return (
-    <Card style={{ transformOrigin: '0 0 0' }} sx={{  width: "25vw" , margin:"1.5vw" }}>
+    <Card style={{ transformOrigin: '0 0 0' }} sx={{  width: "25vw" , margin:"1.5vw", minWidth:200 }}>
       <CardMedia
         component="img"
         alt="green iguana"
