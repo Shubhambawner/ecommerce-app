@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Auth from './Auth';
+import Dashboard from './components/DashboardHeader';
 import reportWebVitals from './reportWebVitals';
 import { Route, Link, BrowserRouter} from 'react-router-dom'
 
@@ -15,6 +16,7 @@ import { Route, Link, BrowserRouter} from 'react-router-dom'
 //   </ BrowserRouter >
 // );
 
+// ReactDOM.render(<Dashboard/>, document.getElementById('root'))
 ReactDOM.render(<Auth action={"log In"}/>, document.getElementById('root'))
 
 // If you want to start measuring performance in your app, pass a function

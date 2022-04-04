@@ -6,6 +6,10 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { height } from '@mui/system';
 
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import StoreIcon from '@mui/icons-material/Store';
+import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
+import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
 // interface Film {
 //   title: string;
 //   year: number;

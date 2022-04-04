@@ -24,7 +24,7 @@ export default function Body(props) {
         //         {cards}
         //     </Container>
         // </React.Fragment>
-        <div style={{display: "flex",
+        <span style={{display: "flex",
             // flexDirection: "row",
             flexWrap: "wrap",
             alignContent: "center",
@@ -32,7 +32,7 @@ export default function Body(props) {
             background: "#d9dbff"
             }}>
             {cards}
-        </div>
+        </span>
     )
 }
 

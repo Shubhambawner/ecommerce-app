@@ -11,12 +11,12 @@ export default function ImgMediaCard(props) {
   console.log(props.action)
 
   let actionButton = (props.action.name=="Remove" || props.action.name=="Cancell Order" )
-  ? <Button size="small"  color="success" onClick={()=>{props.action.action(props.item)}}>{props.action.name}</Button>
+  ? <Button size="small"  color="error" onClick={()=>{props.action.action(props.item)}}>{props.action.name}</Button>
   : <Button size="small" onClick={()=>{props.action.action(props.item)}}>{props.action.name}</Button> 
   
 
   return (
-    <Card sx={{  width: "25vw" , margin:"1.5vw" }}>
+    <Card style={{ transformOrigin: '0 0 0' }} sx={{  width: "25vw" , margin:"1.5vw" }}>
       <CardMedia
         component="img"
         alt="green iguana"
