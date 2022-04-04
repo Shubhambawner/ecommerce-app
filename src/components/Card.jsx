@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import imageSample from "../images/p1.png";
 
 export default function ImgMediaCard(props) {
-  console.log(props.action)
+//   console.log(props.action)
 
   let actionButton = (props.action.name=="Remove" || props.action.name=="Cancell Order" )
   ? <Button size="small"  color="error" onClick={()=>{props.action.action(props.item)}}>{props.action.name}</Button>

@@ -178,7 +178,7 @@ export default function DashboardHeader(props) {
                             </ListItemButton>
                             <ListItemButton onClick={() => { props.itemLoader.loadCart() }}>
                                 <ListItemIcon>
-                            <Badge badgeContent={localStorage.getItem('user')?(JSON.parse(localStorage.getItem('cart'))?localStorage.getItem('cart').length:0):'0'} color="secondary">
+                            <Badge badgeContent={localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')).length:0} color="secondary">
                                     <ShoppingCartIcon />
                             </Badge>
                                 </ListItemIcon>
@@ -217,7 +217,7 @@ export default function DashboardHeader(props) {
 }
 
 function AutocompleteSearch(props) {
-    console.log(props.items, "777777777")
+    // console.log(props.items, "777777777")
     let temp = []
     let temp2 = []
     let action = {}
@@ -235,9 +235,9 @@ function AutocompleteSearch(props) {
             id="combo-box-demo"
             options={temp}
             onChange={(event, newValue) => {
-                console.log(newValue, temp2);
+                // console.log(newValue, temp2);
                 let temp3 = temp2.filter((i) => { return i.title == newValue })
-                console.log(temp3);
+                // console.log(temp3);
                 props.itemLoader.loadCustomItems([...temp3, action]);
             }}
             sx={{ width: "100%" }}

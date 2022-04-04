@@ -113,7 +113,7 @@ function App(props) {
         .then(response => {
             console.log(response, 'place order req ka response');
             if (response["status"] == "Success") {
-                console.log("order placed successfully")
+                // console.log("order placed successfully")
                 // itemLoader.loadHistory();
             }
             return response['status']
@@ -144,7 +144,7 @@ function App(props) {
                     setItems(allAvailableItems);
                 })
 
-            console.log('aaaaaaaaaa')
+            // console.log('aaaaaaaaaa')
         }
     }
 
@@ -158,7 +158,7 @@ function App(props) {
         let cart = JSON.parse(localStorage.getItem('cart'))
         if(!cart || !cart.length) window.alert("cart is empty")
         let tempCart = [...cart, removeFromCart]
-        console.log(tempCart, 'lll')
+        // console.log(tempCart, 'lll')
         if (tempCart.length > 1) {
             setItems(tempCart);
         }
@@ -208,7 +208,7 @@ function App(props) {
                     historyItems = historyItems.map((item) => {
                         return {  ...item.product, ...item }
                     })
-                    console.log(historyItems, 'opopop');
+                    // console.log(historyItems, 'opopop');
                     historyItems.push(cancellOrder)
                     setItems(historyItems);
                 }

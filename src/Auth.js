@@ -131,7 +131,7 @@ export default function TemporaryDrawer(props) {
               <Grid container>
 
                 <Grid item>
-                  <div variant="body2" onClick={() => {
+                  <div variant="body2" style={{cursor:"pointer", color:"blue"}} onClick={() => {
                     setState({ ...state, action: state.action != 'Sign Up' ? "Sign Up" : "Log In" })
                   }}>
                     {state.action == 'Sign Up' ? "Already have an Account? Log In" : "Don't have an account? Sign Up"}
