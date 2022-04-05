@@ -25,17 +25,20 @@ export default function Body(props) {
         //         {cards}
         //     </Container>
         // </React.Fragment>
-        <span style={{display: "flex",
+        <div style={{display: "flex",
             // flexDirection: "row",
-            flexWrap: "wrap",
-            alignContent: "center",
-            justifyContent: "center",
-            background: "#d9dbff",
-            width: "-webkit-fill-available",
-            "paddingTop":50
+            
+    placeContent: "center",
+    background: "rgb(217, 219, 255)",
+    width: "-webkit-fill-available",
+    paddingTop: "9vh",
+    flexWrap: "wrap",
+    minHeight: "80vh",
+    transitionDuration: "300ms",
+    marginLeft:`10vh`
             }}>
             {cards}
-        </span>
+        </div>
     )
 }
 

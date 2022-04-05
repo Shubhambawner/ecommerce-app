@@ -22,7 +22,8 @@ function App(props) {
         if (checkToken()) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.push(item)
-            document.querySelector('#root > div > div > div > div > div > nav > div:nth-child(2) > div.MuiListItemIcon-root.css-cveggr-MuiListItemIcon-root > span > span').innerText++
+            let d = document.querySelector('#root > div > div > div > div > div > nav > div:nth-child(2) > div.MuiListItemIcon-root.css-cveggr-MuiListItemIcon-root > span > span')
+            if(d) d.innerText++
             window.alert(`${item.title?item.title:"item"} added to cart, you can checkout now`)
             localStorage.setItem('cart', JSON.stringify(cart))
         }
@@ -168,7 +169,7 @@ function App(props) {
     itemLoader.placeOrders = async function () {
         if (!checkToken()) props.auth()
         let cart = JSON.parse(localStorage.getItem('cart'))
-        if (cart.length > 0) {
+        if (cart && cart.length > 0) {
             let status = "Failed";
             for (let i = 0; i < cart.length; i++) {
                 status = await placeOneOrder.action(cart[i])
