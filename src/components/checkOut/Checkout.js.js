@@ -16,40 +16,40 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import logo from '../../images/logo.png'
+import CardMedia from '@mui/material/CardMedia';
+import NavigateBack from './NavigateBack'
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+// function getStepContent(step) {
+//   switch (step) {
+//     case 0:
+//       return <AddressForm handleNext={handleNext} handleBack={handleBack}/>;
+//     case 1:
+//       return <PaymentForm  handleNext={handleNext} handleBack={handleBack}/>;
+//     case 2:
+//       return <Review  handleNext={handleNext} handleBack={handleBack}/>;
+//     default:
+//       throw new Error('Unknown step');
+//   }
+// }
 
 const theme = createTheme();
 
 export default function Checkout() {
+
+  if(!localStorage.getItem('cart') ) { 
+    window.alert('Your cart is empty');
+  }
+  if(!localStorage.getItem('user') ) { 
+    window.alert('unauthorised! ');
+  }
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
+    
     setActiveStep(activeStep + 1);
   };
 
@@ -57,10 +57,24 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AddressForm handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
+      case 1:
+        return <PaymentForm  handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
+      case 2:
+        return <Review  handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+  
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar
+      {/* <AppBar
         position="absolute"
         color="default"
         elevation={0}
@@ -74,13 +88,53 @@ export default function Checkout() {
             Company name
           </Typography>
         </Toolbar>
-      </AppBar>
-      <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
+      </AppBar> */}
+      <AppBar style={{
+                position: "fixed",
+                top: 0,
+                
+            }} >
+                <Toolbar
+                    sx={{
+                        pr: '24px', // keep right padding when drawer closed
+                    }}
+                >
+                    <NavigateBack/>
+                    <div style={{
+                        display: "flex",
+                        alignItems: "center"
+                    }}>{window.innerWidth > 450 ?
+                        <CardMedia style={{
+                            height: "42px",
+                            width: "200px"
+                        }}
+                            component="img"
+                            alt="logo"
+
+                            image={logo}
+                        /> : <></>}
+                        <Typography
+                            component="h1"
+                            variant="h6"
+                            color="inherit"
+                            noWrap
+                            sx={{ flexGrow: 1 }}
+                        >
+
+                            Check Out
+                        </Typography>
+                    </div>
+                    <div style={{ width: "-webkit-fill-available" }}></div>
+
+                </Toolbar>
+            </AppBar>
+            
+      <Container component="main" maxWidth="sm" sx={{ mb: 4 }} style={{paddingTop: "10vh"}}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
-          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
+          <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }} style={{width: "100%", overflowX: "scroll"}}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -102,26 +156,12 @@ export default function Checkout() {
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                      Back
-                    </Button>
-                  )}
-
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
-                </Box>
+                
               </React.Fragment>
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
+        
       </Container>
     </ThemeProvider>
   );

@@ -5,7 +5,10 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
-export default function PaymentForm() {
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
+export default function PaymentForm(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -60,6 +63,21 @@ export default function PaymentForm() {
           />
         </Grid>
       </Grid>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  {props.activeStep !== 0 && (
+                    <Button onClick={props.handleBack} sx={{ mt: 3, ml: 1 }}>
+                      Back
+                    </Button>
+                  )}
+
+                  <Button
+                    variant="contained"
+                    onClick={ ()=>{props.handleNext()}}
+                    sx={{ mt: 3, ml: 1 }}
+                  >
+                    {props.activeStep === 2 ? 'Place order' : 'Next'}
+                  </Button>
+                </Box>
     </React.Fragment>
   );
 }

@@ -30,8 +30,6 @@ import Body from './Body'
 import logo from '../images/logo.png'
 import CardMedia from '@mui/material/CardMedia';
 
-import CheckOut from './checkOut/Checkout.js'
-
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -145,7 +143,7 @@ export default function DashboardHeader(props) {
                             </ListItemIcon>
                             <ListItemText primary="Cart" />
                         </ListItemButton >
-                        <ListItemButton onClick={() => { props.itemLoader.placeOrders() }}>
+                        <ListItemButton onClick={() => {  window.location.href =  '/checkout' }}>
                             <ListItemIcon>
                                 <ShoppingCartCheckoutOutlinedIcon />
                             </ListItemIcon>

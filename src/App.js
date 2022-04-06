@@ -6,6 +6,8 @@ import Footer from './components/Footer';
 import Body from './components/Body';
 import { useState } from 'react'
 
+import CheckOut from './components/checkOut/Checkout.js'
+
 const allItems = []
 
 function App(props) {
@@ -119,6 +121,14 @@ function App(props) {
             }
             return response['status']
         }).catch(error => console.log('error', error));
+    }
+
+    let checkOut = {}
+    checkOut.name = "Checkout"
+    checkOut.action = async function (item) {
+        let authToken = checkToken()
+        if (!authToken) props.auth()
+        
     }
 
     itemLoader.loadAllItems = async function () {

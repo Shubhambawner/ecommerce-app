@@ -4,20 +4,23 @@ import './index.css';
 import Auth from './Auth';
 import Dashboard from './components/DashboardHeader';
 import reportWebVitals from './reportWebVitals';
-import { Route, Link, BrowserRouter} from 'react-router-dom'
+import { Route, Link, BrowserRouter, Routes} from 'react-router-dom'
 
-// const routs = (
-//   < BrowserRouter >
-//      <div>
-//         <Route path="/" component={App} />
-//         {/* <Route path="/aboutus" component={ AboutUs } />
-//         <Route path="/contactus" component={ ContactUs } /> */}
-//      </div>
-//   </ BrowserRouter >
-// );
+import Checkout from './components/checkOut/Checkout.js'
+
+let APP = <Auth action={"log In"}/>
+const routs = (
+  < BrowserRouter >
+     <Routes>
+        <Route  exact path="/" element={<Auth  action={"log In"} />} />
+        <Route path="/checkout" element={ <Checkout/> } />
+        {/* <Route path="/about" element={ AboutUs } /> */}
+     </Routes>
+  </ BrowserRouter >
+);
 
 // ReactDOM.render(<Dashboard/>, document.getElementById('root'))
-ReactDOM.render(<Auth action={"log In"}/>, document.getElementById('root'))
+ReactDOM.render(routs, document.getElementById('root'))
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
