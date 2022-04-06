@@ -30,6 +30,7 @@ import Body from './Body'
 import logo from '../images/logo.png'
 import CardMedia from '@mui/material/CardMedia';
 
+import CheckOut from './checkOut/Checkout.js'
 
 const drawerWidth = 240;
 
@@ -77,8 +78,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         },
     }),
 );
-
-const mdTheme = createTheme();
 
 
 export default function DashboardHeader(props) {
