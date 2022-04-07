@@ -180,6 +180,7 @@ export default function TemporaryDrawer(props) {
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', mode === 'light' ? '#000000' : 'rgb(25, 118, 210)');
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
       },
     }),
