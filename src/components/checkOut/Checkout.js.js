@@ -39,8 +39,9 @@ const theme = createTheme();
 
 export default function Checkout() {
 
-  if(!localStorage.getItem('cart') && !localStorage.getItem('cart').length) { 
+  if(!localStorage.getItem('cart') || !localStorage.getItem('cart').length) { 
     window.alert('Your cart is empty, redirecting you to store');
+    window.location.href = '/'
   }
   if(!localStorage.getItem('user') ) { 
     window.alert('unauthorised! , redirecting you to store');

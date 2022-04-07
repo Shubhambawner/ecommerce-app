@@ -25,6 +25,8 @@ import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCh
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
+import SearchIcon from '@mui/icons-material/Search';
+
 import Body from './Body'
 
 import logo from '../images/logo.png'
@@ -186,7 +188,7 @@ export default function DashboardHeader(props) {
                         aria-label="open drawer"
                         onClick={toggleDrawer}
                         sx={{
-                            marginRight: '36px',
+                            marginRight: '10px',
                             ...(open && { display: 'none' }),
                         }}
                     >
@@ -195,10 +197,11 @@ export default function DashboardHeader(props) {
                     <div style={{
                         display: "flex",
                         alignItems: "center"
-                    }}>{window.outerWidth > 450 ?
+                    }}>{window.innerWidth > 450 ?
                         <CardMedia style={{
                             height: "42px",
-                            width: "200px"
+                            width: "200px",
+                            paddingRight: "0.5rem"
                         }}
                             component="img"
                             alt="logo"
@@ -217,6 +220,19 @@ export default function DashboardHeader(props) {
                         </Typography>
                     </div>
                     <div style={{ width: "-webkit-fill-available" }}></div>
+
+                    <IconButton
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        onClick={toggleDrawer}
+                        sx={{
+                            
+                            ...(open && { display: 'none' }),
+                        }}
+                    >
+                        <SearchIcon />
+                    </IconButton>
 
                 </Toolbar>
             </AppBar>
