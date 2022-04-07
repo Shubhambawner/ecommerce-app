@@ -148,10 +148,13 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Order placed successfully. You can now see and modify this order in order history section on the store, after logging inn.
                 </Typography>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button variant="contained" onClick={()=>{window.location.href='/'}} sx={{ mt: 3, ml: 1 }}>
+                      Back to store
+                    </Button>                 
+                </Box>
               </React.Fragment>
             ) : (
               <React.Fragment>

@@ -153,7 +153,6 @@ export default function TemporaryDrawer(props) {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    console.log('wqerqwr');
     setState({ ...state, [anchor]: open, Name: Name });
   };
 
@@ -237,9 +236,10 @@ let checkSignUp = async (user) => {
   return await fetch("https://e-commerce.urownsite.xyz/users/signUp", requestOptions)
     .then(response => response.json())
     .then(result => {
+      console.log(result, "result")
       localStorage.setItem('user', JSON.stringify(result));
-      if (result.status == 'Success') window.alert('Sign Up successfull')
-      else window.alert('Sign Up failed')
+      if (result.status == 'sucess') window.alert('Sign Up successfull')
+      else window.alert('Signing Up failed')
 
       return result
     })

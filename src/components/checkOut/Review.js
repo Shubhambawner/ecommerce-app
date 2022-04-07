@@ -8,9 +8,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-let products = localStorage.getItem('cart');
-if(!products) window.alert('Your cart is empty');
-products = JSON.parse(products);
+import placeOrders from './placeOrder'
+
+// let products = localStorage.getItem('cart');
+// //if(!products) window.alert('Your cart is empty --');
+// products = JSON.parse(products);
 
 
 const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
@@ -22,6 +24,14 @@ const payments = [
 ];
 
 export default function Review(props) {
+  let products = localStorage.getItem('cart');
+if(!products){ 
+  window.alert('Your cart is empty')
+  window.location.href = '/'
+
+};
+products = JSON.parse(products);
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -77,10 +87,10 @@ export default function Review(props) {
 
                   <Button
                     variant="contained"
-                    onClick={props.handleNext}
+                    onClick={()=>{placeOrders();props.handleNext() }}
                     sx={{ mt: 3, ml: 1 }}
                   >
-                    {props.activeStep === 2 ? 'Place order' : 'Next'}
+                    {'Place order'}
                   </Button>
                 </Box>
     </React.Fragment>
