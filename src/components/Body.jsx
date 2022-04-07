@@ -30,7 +30,7 @@ export default function Body(props) {
             
     placeContent: "center",
     background: "rgb(204 210 216)",
-    width: "-webkit-fill-available",
+    width: "calc(100% - 240)",
     paddingTop: "9vh",
     flexWrap: "wrap",
     minHeight: "80vh",
