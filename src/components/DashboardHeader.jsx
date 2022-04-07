@@ -234,6 +234,8 @@ export default function DashboardHeader(props) {
                         <SearchIcon />
                     </IconButton>
 
+                    {props.toggleElement}
+
                 </Toolbar>
             </AppBar>
             

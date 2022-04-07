@@ -11,10 +11,16 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 import Drawer from '@mui/material/Drawer';
+
+import IconButton from '@mui/material/IconButton';
+import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+
+
 // import List from '@mui/material/List';
 // import Divider from '@mui/material/Divider';
 // import ListItem from '@mui/material/ListItem';
@@ -24,6 +30,7 @@ import Drawer from '@mui/material/Drawer';
 // import MailIcon from '@mui/icons-material/Mail';
 
 import App from './App';
+const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
 export default function TemporaryDrawer(props) {
   const [state, setState] = React.useState({
@@ -168,9 +175,40 @@ export default function TemporaryDrawer(props) {
   );
 
 
+  // theme -------------------
+  const [mode, setMode] = React.useState('light');
+  const colorMode = React.useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
+
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode],
+  );
+
+  let toggleElement = <IconButton style={{position:"fix", top:0,left:0}}sx={{ ml: 1 }} onClick={()=>{window.alert('dark mode is under construction, may have some UI issues');colorMode.toggleColorMode()}} color="inherit">
+  {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+</IconButton>
+
+
+
   return (
+
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
     <div>
 
+    
       <React.Fragment key={'right'}>
         <Drawer
           anchor={'right'}
@@ -181,8 +219,11 @@ export default function TemporaryDrawer(props) {
         </Drawer>
       </React.Fragment>
 
-      <App auth={() => { setState({ ...state, 'right': true, Name: state.Name }) }} />
+      <App auth={() => { setState({ ...state, 'right': true, Name: state.Name }) }} toggleElement={toggleElement}/>
     </div>
+
+    </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 }
 

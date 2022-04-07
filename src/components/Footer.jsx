@@ -8,7 +8,7 @@ import { Button } from '@mui/material';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary" style={{paddingLeft:`padding-left: calc(10vw + 16px)`}}>
+    <Typography variant="body2" color="text.secondary" style={{paddingLeft:`padding-left: calc(10vw + 16px)`,}}>
       
       <Link color="inherit" href="https://github.com/Shubhambawner">
         Github
@@ -38,7 +38,7 @@ export default function StickyFooter(props) {
         style={{paddingLeft:"calc(16px + 10vw)"}}
       >
         <Container maxWidth="sm">
-          <Typography variant="body1">
+          <Typography variant="body1" style={{color: "#7d7d7d"}}>
             Created By: Shubham Shrikant Bawner
           </Typography>
           <Copyright />

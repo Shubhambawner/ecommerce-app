@@ -258,6 +258,7 @@ function App(props) {
                 items={items}
                 addToCart={addToCart}
                 triger={triger}
+                toggleElement={props.toggleElement}
             />
             {/* <Body 
             items={items} itemLoader={itemLoader} 

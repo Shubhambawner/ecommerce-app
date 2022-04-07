@@ -29,7 +29,7 @@ export default function Body(props) {
             // flexDirection: "row",
             
     placeContent: "center",
-    background: "rgb(217, 219, 255)",
+    background: "rgb(204 210 216)",
     width: "-webkit-fill-available",
     paddingTop: "9vh",
     flexWrap: "wrap",
