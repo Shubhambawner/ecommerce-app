@@ -26,7 +26,7 @@ function App(props) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.push(item)
             let d = document.querySelector('#root > div > div > div > div > div > nav > div:nth-child(2) > div.MuiListItemIcon-root.css-cveggr-MuiListItemIcon-root > span > span')
-            window.alert(`${item.title ? item.title : "item"} added to cart, you can checkout now`)
+            console.log(`${item.title ? item.title : "item"} added to cart, you can checkout now`)
             localStorage.setItem('cart', JSON.stringify(cart))
             if (d) d.innerText++
             else{ 
