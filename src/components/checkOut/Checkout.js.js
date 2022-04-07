@@ -39,11 +39,11 @@ const theme = createTheme();
 
 export default function Checkout() {
 
-  if(!localStorage.getItem('cart') ) { 
-    window.alert('Your cart is empty');
+  if(!localStorage.getItem('cart') && !localStorage.getItem('cart').length) { 
+    window.alert('Your cart is empty, redirecting you to store');
   }
   if(!localStorage.getItem('user') ) { 
-    window.alert('unauthorised! ');
+    window.alert('unauthorised! , redirecting you to store');
   }
 
   const [activeStep, setActiveStep] = React.useState(0);

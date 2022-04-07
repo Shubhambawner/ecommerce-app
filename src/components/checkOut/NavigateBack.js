@@ -45,11 +45,11 @@ export default function AlertDialog() {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
+          {"Abort purchase?"}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to cancel the process and return to main store ?
+            Are you sure you want to cancel the process and return to main store ? Note that items will still be in your cart, you can remove them any time!
           </DialogContentText>
         </DialogContent>
         <DialogActions>

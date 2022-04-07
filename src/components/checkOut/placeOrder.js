@@ -49,7 +49,7 @@ const placeOrders = async function () {
         }
         
     }
-    else window.alert('cart is empty! <place orders function>')
+    else window.alert('cart is empty! please add items to cart first')
 }
 
 function checkToken() {

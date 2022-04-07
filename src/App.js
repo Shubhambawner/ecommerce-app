@@ -13,6 +13,7 @@ const allItems = []
 function App(props) {
     let action = {}
     let [items, setItems] = useState(allItems)
+    let [triger, setTriger] = useState(true)
     let cart = []
     let allAvailableItems = []
 
@@ -25,9 +26,14 @@ function App(props) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.push(item)
             let d = document.querySelector('#root > div > div > div > div > div > nav > div:nth-child(2) > div.MuiListItemIcon-root.css-cveggr-MuiListItemIcon-root > span > span')
-            if(d) d.innerText++
-            window.alert(`${item.title?item.title:"item"} added to cart, you can checkout now`)
+            window.alert(`${item.title ? item.title : "item"} added to cart, you can checkout now`)
             localStorage.setItem('cart', JSON.stringify(cart))
+            if (d) d.innerText++
+            else{ 
+                console.log('yyyy')
+                setTriger(!triger);
+            }
+            setTriger(!triger);
         }
         else props.auth()
     }
@@ -39,19 +45,26 @@ function App(props) {
         if (checkToken()) {
             let cart = JSON.parse(localStorage.getItem('cart'))
             let temp = cart.length
-            cart = cart.filter((i) => { return JSON.stringify(item) != JSON.stringify(i) })
+            // cart = cart.filter((i) => { return JSON.stringify(item) != JSON.stringify(i) })
+            for(let i = 0; i<cart.length; i++){
+                if(JSON.stringify(item) == JSON.stringify(cart[i])){
+                    cart.splice(i,1)
+                    break
+                }
+            }
+
             if (cart.length == temp) window.alert(`item ${JSON.stringify(item)} could not be removed!`)
             else {
                 localStorage.setItem('cart', JSON.stringify(cart))
                 let tempCart = [...cart, removeFromCart]
-                window.alert(`item ${JSON.stringify(item).title?JSON.stringify(item).title:""} removed!`)
+                window.alert(`item ${JSON.stringify(item).title ? JSON.stringify(item).title : ""} removed!`)
                 setItems(tempCart);
             }
         }
         else props.auth()
     }
 
-    
+
     let cancellOrder = {}
     cancellOrder.name = "Cancell Order"
     cancellOrder.action = async (item) => {
@@ -81,7 +94,7 @@ function App(props) {
                     window.alert("order cancelled successfully")
                     itemLoader.loadHistory();
                 }
-                else if(response["status"] == "Order Not Found"){
+                else if (response["status"] == "Order Not Found") {
                     window.alert(`Order ${JSON.stringify(item)} Not Found`)
                 }
                 else {
@@ -112,15 +125,15 @@ function App(props) {
         };
 
         fetch("https://e-commerce.urownsite.xyz/orders/place", requestOptions)
-        .then(response => response.json())
-        .then(response => {
-            console.log(response, 'place order req ka response');
-            if (response["status"] == "Success") {
-                // console.log("order placed successfully")
-                // itemLoader.loadHistory();
-            }
-            return response['status']
-        }).catch(error => console.log('error', error));
+            .then(response => response.json())
+            .then(response => {
+                console.log(response, 'place order req ka response');
+                if (response["status"] == "Success") {
+                    // console.log("order placed successfully")
+                    // itemLoader.loadHistory();
+                }
+                return response['status']
+            }).catch(error => console.log('error', error));
     }
 
     let checkOut = {}
@@ -128,7 +141,7 @@ function App(props) {
     checkOut.action = async function (item) {
         let authToken = checkToken()
         if (!authToken) props.auth()
-        
+
     }
 
     itemLoader.loadAllItems = async function () {
@@ -167,13 +180,17 @@ function App(props) {
     itemLoader.loadCart = async function () {
         if (!checkToken()) props.auth()
         let cart = JSON.parse(localStorage.getItem('cart'))
-        if(!cart || !cart.length) window.alert("cart is empty")
-        let tempCart = [...cart, removeFromCart]
-        // console.log(tempCart, 'lll')
-        if (tempCart.length > 1) {
-            setItems(tempCart);
+        if (!cart || !cart.length) window.alert("cart is empty!")
+        else {
+
+
+            let tempCart = [...cart, removeFromCart]
+            // console.log(tempCart, 'lll')
+            if (tempCart.length > 1) {
+                setItems(tempCart);
+            }
+            
         }
-        else window.alert('cart is empty!')
     }
 
     itemLoader.placeOrders = async function () {
@@ -191,7 +208,7 @@ function App(props) {
             localStorage.setItem('user', user)
             itemLoader.loadHistory();
         }
-        else window.alert('cart is empty!')
+        else window.alert('cart is empty! Cant place Orders')
     }
 
     itemLoader.loadHistory = async function () {
@@ -217,7 +234,7 @@ function App(props) {
                 if (historyItems["status"] == "Success") {
                     historyItems = historyItems.data
                     historyItems = historyItems.map((item) => {
-                        return {  ...item.product, ...item }
+                        return { ...item.product, ...item }
                     })
                     // console.log(historyItems, 'opopop');
                     historyItems.push(cancellOrder)
@@ -234,12 +251,13 @@ function App(props) {
         <div className="App">
             {/* <Header />
       <Login anchorButton="buy" action="log In" /> */}
-            <Header 
-            action={items.length > 0 ? items[items.length - 1] : addToCart}  
-            itemLoader={itemLoader} 
-            auth={() => { props.auth() }} 
-            items={items} 
-            addToCart={addToCart}
+            <Header
+                action={items.length > 0 ? items[items.length - 1] : addToCart}
+                itemLoader={itemLoader}
+                auth={() => { props.auth() }}
+                items={items}
+                addToCart={addToCart}
+                triger={triger}
             />
             {/* <Body 
             items={items} itemLoader={itemLoader} 
