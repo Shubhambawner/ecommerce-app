@@ -197,7 +197,7 @@ export default function DashboardHeader(props) {
                     <div style={{
                         display: "flex",
                         alignItems: "center"
-                    }}>{window.innerWidth > 450 ?
+                    }}>{window.innerWidth > 550 ?
                         <CardMedia style={{
                             height: "42px",
                             width: "200px",
