@@ -13,7 +13,7 @@ export default function Body(props) {
     let cards = props.items.map((item) => {
         if (item.title) {
             return (
-                <Card item={item} action={props.action} action2={props.action2} />
+                <Card item={item} action={props.action} action2={props.action2} key={Math.random()}/>
             )
         } else return (<></>)
     })
