@@ -1,7 +1,7 @@
 # Project Structure
 ## Routes:
-'/'  --> <Auth>
-'/placeorder' --> <Checkout>
+      '/'  --> <Auth>
+      '/placeorder' --> <Checkout>
 
 ## element Hirarky:
 
