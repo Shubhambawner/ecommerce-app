@@ -1,21 +1,23 @@
 # Project Structure
-### Routes:
-'/'  --> `<Auth>`
-'/placeorder' --> `<Checkout>`
+## Routes:
+'/'  --> <Auth>
+'/placeorder' --> <Checkout>
 
-### element Hirarky:
-`<Auth>` -> `<App>` ->  `<DashboardHeader>` -> `<Body>` -> `<Card>`
-                                      -> `<AutocompleteSearch>`
-                    ->  `<Footer>`
-         -> `<LoginSide>`
+## element Hirarky:
 
-`<Checkout>` -> `<AddressForm>`
-             -> `<PaymentForm>`
-             -> `<Review>` <- placeOrder.js
+`
+<Auth> -> <App> ->  <DashboardHeader> -> <Body> -> <Card>
+                                      -> <AutocompleteSearch>
+                ->  <Footer>
+       -> <LoginSide>
 
+<Checkout> -> <AddressForm>
+           -> <PaymentForm>
+           -> <Review> <- placeOrder.js
 
+`
 
-### Functions: Auth Hirarky
+## Functions: Auth Hirarky
 1. Auth:
     - switch Theme
     - login/signUp
