@@ -24,6 +24,7 @@ function App(props) {
     addToCart.action = (item) => {
         if (checkToken()) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
             cart.push(item)
             localStorage.setItem('cart', JSON.stringify(cart))
             setCartCount(cart.length)
@@ -80,21 +81,19 @@ function App(props) {
         };
 
         await fetch("https://e-commerce.urownsite.xyz/orders/cancel", requestOptions)
-            .then(response => response.json())
+            .then(response =>{ 
+                if (!response.ok) {
+                    console.log(response);
+                    throw new Error(`Error! status: ${response.status}`);
+                  }
+                return  response.json()
+            })
             .then(response => {
-                console.log(response, 'cansell req ka response');
-                if (response["status"] == "Success") {
+                
                     window.alert("order cancelled successfully")
                     itemLoader.loadHistory();
-                }
-                else if (response["status"] == "Order Not Found") {
-                    window.alert(`Order ${JSON.stringify(item)} Not Found`)
-                }
-                else {
-                    window.alert(`sOME ERROR OCCURED, PLEASE login AGAIN`)
-                    props.auth()
-                }
-            }).catch(error => console.log('error', error));
+                
+            }).catch(error => console.log('error:', error));
     }
 
     let placeOneOrder = {}
@@ -118,13 +117,14 @@ function App(props) {
         };
 
         fetch("https://e-commerce.urownsite.xyz/orders/place", requestOptions)
-            .then(response => response.json())
+            .then(response =>{
+                if (!response.ok) {
+                    console.log(response);
+                    throw new Error(`Error! status: ${response.status}`);
+                  }
+                return  response.json()})
             .then(response => {
                 console.log(response, 'place order req ka response');
-                if (response["status"] == "Success") {
-                    // console.log("order placed successfully")
-                    // itemLoader.loadHistory();
-                }
                 return response['status']
             }).catch(error => console.log('error', error));
     }
@@ -153,7 +153,13 @@ function App(props) {
             };
 
             await fetch("https://e-commerce.urownsite.xyz/products", requestOptions)
-                .then(allItems => allItems.json())
+                .then(allItems =>{
+                    if (!allItems.ok) {
+                        console.log(allItems);
+                        throw new Error(`Error! status: ${allItems.status}`);
+                      }
+                      return  allItems.json()
+                })
                 .then(allItems => {
                     console.log(allItems);
                     allAvailableItems = allItems.data
@@ -221,22 +227,25 @@ function App(props) {
         };
 
         fetch("https://e-commerce.urownsite.xyz/orders", requestOptions)
-            .then(historyItems => historyItems.json())
+            .then(historyItems =>{
+                if (!historyItems.ok) {
+                    console.log(historyItems);
+                    throw new Error(`Error! status: ${historyItems.status}`);
+                  }
+                  return  historyItems.json()
+            })
             .then(historyItems => {
                 console.log(historyItems);
-                if (historyItems["status"] == "Success") {
+                
                     historyItems = historyItems.data
                     historyItems = historyItems.map((item) => {
                         return { ...item.product, ...item }
                     })
-                    // console.log(historyItems, 'opopop');
+                    console.log(historyItems, 'opopop');
                     if(historyItems.length == 0) window.alert('No Orders Found')
                     historyItems.push(cancellOrder)
                     setItems(historyItems);
-                }
-                else {
-                    props.auth()
-                }
+                
             }).catch(error => console.log('error', error));
     }
         //setTimeout(()=>loadAllItems(), 1000)
