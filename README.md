@@ -1,7 +1,54 @@
+# Project Structure
+### Routes:
+'/'  --> <Auth>
+'/placeorder' --> <Checkout>
+
+### element Hirarky:
+<Auth> -> <App> ->  <DashboardHeader> -> <Body> -> <Card>
+                                      -> <AutocompleteSearch>
+                ->  <Footer>
+       -> <LoginSide>
+
+<Checkout> -> <AddressForm>
+           -> <PaymentForm>
+           -> <Review> <- placeOrder.js
+
+
+
+### Functions: Auth Hirarky
+1. Auth:
+    - switch Theme
+    - login/signUp
+2. App:
+    - addToCart
+    - removeFromCart
+    - cancellOrder
+    [functions to load items in Body]
+    - loadAllItems(in store)
+    - loadCart(load items of cart)
+    - loadHistory
+    - loadCustomItems(itemArray)
+3. DashboardHeader
+    - LogOut
+
+### Functions: Checkout Hirarky
+1. Checkout:
+    - handleNext
+    - handleBack
+    - setActiveStep
+    - getStepContent
+2. placeOrder:
+    - checkToken
+    - placeOrders
+    - placeOneOrder
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Deployment: 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/e5e45ab7-7196-4e2e-b2e1-cf89ac48adc8/deploy-status)](https://app.netlify.com/sites/react-e-commerce-app12341253153461/deploys)
 
 ## Available Scripts
