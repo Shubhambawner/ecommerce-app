@@ -49,6 +49,7 @@ function App(props) {
 
             if (cart.length == temp) window.alert(`item ${JSON.stringify(item)} could not be removed!`)
             else {
+                setCartCount(cart.length)
                 localStorage.setItem('cart', JSON.stringify(cart))
                 let tempCart = [...cart, removeFromCart]
                 window.alert(`item ${JSON.stringify(item).title ? JSON.stringify(item).title : ""} removed!`)
