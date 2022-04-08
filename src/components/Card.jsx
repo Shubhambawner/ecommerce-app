@@ -32,7 +32,7 @@ export default function ImgMediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        {props.item.status=="Cancelled"
+        {props.item.status=="Cancelled"&&!props.item.inCart
         ?<>cancelled!<Button size="small" onClick={()=>{props.action2.action(props.item)}}>{props.action2.name}</Button></>
         : actionButton}
       </CardActions>

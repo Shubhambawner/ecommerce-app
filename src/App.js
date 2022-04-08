@@ -24,7 +24,7 @@ function App(props) {
     addToCart.action = (item) => {
         if (checkToken()) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
+            item.inCart = true;
             cart.push(item)
             localStorage.setItem('cart', JSON.stringify(cart))
             setCartCount(cart.length)
