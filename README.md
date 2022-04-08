@@ -1,17 +1,17 @@
 # Project Structure
 ### Routes:
-'/'  --> <Auth>
-'/placeorder' --> <Checkout>
+'/'  --> `<Auth>`
+'/placeorder' --> `<Checkout>`
 
 ### element Hirarky:
-<Auth> -> <App> ->  <DashboardHeader> -> <Body> -> <Card>
-                                      -> <AutocompleteSearch>
-                ->  <Footer>
-       -> <LoginSide>
+`<Auth>` -> `<App>` ->  `<DashboardHeader>` -> `<Body>` -> `<Card>`
+                                      -> `<AutocompleteSearch>`
+                    ->  `<Footer>`
+         -> `<LoginSide>`
 
-<Checkout> -> <AddressForm>
-           -> <PaymentForm>
-           -> <Review> <- placeOrder.js
+`<Checkout>` -> `<AddressForm>`
+             -> `<PaymentForm>`
+             -> `<Review>` <- placeOrder.js
 
 
 
