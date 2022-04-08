@@ -93,7 +93,9 @@ export default function DashboardHeader(props) {
 
     let entryFunction = () => {
         if (localStorage.getItem('user')) {
-            localStorage.clear(); window.location.reload()
+            localStorage.clear(); 
+            window.alert('logged out Successfully!')
+            window.location.reload()
         }
         else
             props.auth()
