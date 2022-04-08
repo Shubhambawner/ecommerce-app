@@ -9,7 +9,7 @@ let placeOneOrder = async function (item) {
     myHeaders.append("Authorization", authToken);
 
     var raw = JSON.stringify({
-        "productId": item.id //this is NOT id of the order item from order history, but one from get all products
+        "productId":(item.productId)?item.productId:item.id //this is NOT id of the order item from order history, but one from get all products
     });
 
     var requestOptions = {
@@ -19,15 +19,18 @@ let placeOneOrder = async function (item) {
         redirect: 'follow'
     };
 
+    console.log(item, raw, '55555555')
+
     fetch("https://e-commerce.urownsite.xyz/orders/place", requestOptions)
-    .then(response => response.json())
-    .then(response => {
-        console.log(response, 'place order req ka response');
-        if (response["status"] == "Success") {
-            // console.log("order placed successfully")
-            // itemLoader.loadHistory();
+    .then(response =>{
+        if (!response.ok) {
+            console.log(response);
+            throw new Error(`Error! status: ${response.status}`);
         }
-        return response['status']
+        response.json()
+    })
+    .then(response => {
+        return "Success"
     }).catch(error => console.log('error', error));
 }
 
@@ -42,7 +45,7 @@ const placeOrders = async function () {
         for (let i = 0; i < cart.length; i++) {
             status = await placeOneOrder(cart[i])
         }
-        if (status == "Failed") window.alert(`no order placed!`)
+        if (status != "Success") window.alert(`no order placed!`)
         else{
             window.alert(`Order for all items in the cart placed successfully!`)
             localStorage.removeItem('cart')
