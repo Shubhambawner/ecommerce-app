@@ -139,7 +139,7 @@ export default function DashboardHeader(props) {
                         </ListItemButton>
                         <ListItemButton onClick={() => { props.itemLoader.loadCart() }}>
                             <ListItemIcon>
-                                <Badge badgeContent={localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')).length : 0} color="secondary">
+                                <Badge badgeContent={props.cartCount?props.cartCount: localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')).length:0} color="secondary">
                                     <ShoppingCartIcon />
                                 </Badge>
                             </ListItemIcon>
@@ -245,6 +245,7 @@ export default function DashboardHeader(props) {
                 action={props.items.length > 0 ? props.items[props.items.length - 1] : props.addToCart}
                 action2={props.addToCart}
                 auth={() => { props.auth() }}
+                
             />
 
 

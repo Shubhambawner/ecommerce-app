@@ -14,6 +14,7 @@ function App(props) {
     let action = {}
     let [items, setItems] = useState(allItems)
     let [triger, setTriger] = useState(true)
+    let [cartCount, setCartCount] = useState(0)
     let cart = []
     let allAvailableItems = []
 
@@ -25,16 +26,8 @@ function App(props) {
         if (checkToken()) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.push(item)
-            let d = document.querySelector('#root > div > div > div > div > div > nav > div:nth-child(2) > div.MuiListItemIcon-root.css-cveggr-MuiListItemIcon-root > span > span')
-            if(!d) d = document.querySelector('#root > div > div > div.MuiBox-root.css-k008qs > div.MuiDrawer-root.MuiDrawer-docked.css-aq1gdx-MuiDrawer-docked > div > nav > div:nth-child(2) > div.MuiListItemIcon-root.css-qklaqr-MuiListItemIcon-root > span > span')
-            console.log(`${item.title ? item.title : "item"} added to cart, you can checkout now`, d)
             localStorage.setItem('cart', JSON.stringify(cart))
-            if (d) d.innerText++
-            else{ 
-                console.log('yyyy')
-                setTriger(!triger);
-            }
-            setTriger(!triger);
+            setCartCount(cart.length)
         }
         else props.auth()
     }
@@ -260,6 +253,7 @@ function App(props) {
                 addToCart={addToCart}
                 triger={triger}
                 toggleElement={props.toggleElement}
+                cartCount={cartCount}
             />
             {/* <Body 
             items={items} itemLoader={itemLoader} 
