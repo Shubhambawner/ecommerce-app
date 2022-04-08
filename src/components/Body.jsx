@@ -35,7 +35,9 @@ export default function Body(props) {
     flexWrap: "wrap",
     minHeight: "80vh",
     transitionDuration: "300ms",
-    marginLeft:`10vh`
+    marginLeft:`10vh`,
+    textAlign: `center`
+  
             }}>
             {cards}
         </div>

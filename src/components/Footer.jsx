@@ -39,7 +39,7 @@ export default function StickyFooter(props) {
       >
         <Container maxWidth="sm">
           <Typography variant="body1" style={{color: "#7d7d7d"}}>
-            Created By: Shubham Shrikant Bawner
+            @ 2022 Shubham Shrikant Bawner
           </Typography>
           <Copyright />
         </Container>
