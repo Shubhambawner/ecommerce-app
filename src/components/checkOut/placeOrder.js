@@ -45,7 +45,7 @@ const placeOrders = async function () {
         for (let i = 0; i < cart.length; i++) {
             status = await placeOneOrder(cart[i])
         }
-        if (status != "Success") window.alert(`no order placed!`)
+        if (status == "Failed") window.alert(`no order placed!`)
         else{
             window.alert(`Order for all items in the cart placed successfully!`)
             localStorage.removeItem('cart')
