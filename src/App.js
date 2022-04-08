@@ -231,6 +231,7 @@ function App(props) {
                         return { ...item.product, ...item }
                     })
                     // console.log(historyItems, 'opopop');
+                    if(historyItems.length == 0) window.alert('No Orders Found')
                     historyItems.push(cancellOrder)
                     setItems(historyItems);
                 }
