@@ -46,14 +46,14 @@ export default function TemporaryDrawer(props) {
     console.log(state)
     if (state.action == 'log In') {
       let result = await checkLogin(user)
-      if (result.status == 'Success') {
+      if (result == 'Success') {
         console.log('ttttttt')
         setState({ ...state, 'right': false, Name: state.Name });
       }
     }
     else {
       let result = await checkSignUp(user)
-      if (result.status == 'sucess') setState({ ...state, 'right': false, Name: state.Name });
+      if (result == 'Success') setState({ ...state, 'right': false, Name: state.Name });
     }
   }
 
@@ -252,13 +252,19 @@ let checkLogin = async (user) => {
   };
 
   return await fetch("https://e-commerce.urownsite.xyz/users/login", requestOptions)
-    .then(response => response.json())
+    .then(response => {
+      if (response.ok) window.alert('login successfull')
+      else {
+        window.alert('login failed')
+        throw new Error('login failed')
+      }
+
+      response.json()
+    })
     .then(result => {
       localStorage.setItem('user', JSON.stringify(result));
-      if (result.status == 'Success') window.alert('login successfull')
-      else window.alert('login failed')
-
-      return result
+      
+      return 'Success'
     })
     .catch(error => console.log('error', error));
 
@@ -282,14 +288,19 @@ let checkSignUp = async (user) => {
   };
 
   return await fetch("https://e-commerce.urownsite.xyz/users/signUp", requestOptions)
-    .then(response => response.json())
+    .then(response =>{
+      if (response.ok) window.alert('Sign Up successfull')
+      else {
+        window.alert('Signing Up failed')
+        throw new Error('Signing Up failed')
+      }
+      response.json()
+    })
     .then(result => {
       console.log(result, "result")
       localStorage.setItem('user', JSON.stringify(result));
-      if (result.status == 'sucess') window.alert('Sign Up successfull')
-      else window.alert('Signing Up failed')
-
-      return result
+      
+      return 'Success'
     })
     .catch(error => console.log('error', error));
 }
