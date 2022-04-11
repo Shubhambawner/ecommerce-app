@@ -253,13 +253,16 @@ let checkLogin = async (user) => {
 
   return await fetch("https://e-commerce.urownsite.xyz/users/login", requestOptions)
     .then(response => {
-      if (response.ok) window.alert('login successfull')
+      if (response.ok){
+        //console.log(response.json()); 
+        window.alert('login successfull')
+      }
       else {
         window.alert('login failed')
         throw new Error('login failed')
       }
 
-      response.json()
+      return response.json()
     })
     .then(result => {
       localStorage.setItem('user', JSON.stringify(result));
