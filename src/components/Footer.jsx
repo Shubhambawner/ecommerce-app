@@ -16,6 +16,24 @@ function Copyright() {
       <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
         LinkedIn
       </Link>
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      About Us
+      </Link>
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      Contact Us
+      </Link>
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      Privacy Policy
+      </Link>
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      Terms and Conditions
+      </Link>
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      Privacy Policy
+      </Link>
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      Cancellation/Refund Policies
+      </Link>
       
     </Typography>
   );
