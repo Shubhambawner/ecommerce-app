@@ -61,7 +61,7 @@ export default function StickyFooter(props) {
       Cancellation/Refund Policies
       </Link><br/>{' '}
         </Container>
-        <div onClick={razorPay}>payments!</div>
+        <div id = "razorPay" onClick={razorPay}>payments!</div>
       </Box>
     
   );
