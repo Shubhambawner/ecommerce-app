@@ -126,7 +126,6 @@ export default function DashboardHeader(props) {
                 >
                     <AutocompleteSearch items={props.items} itemLoader={props.itemLoader} searchName={searchName} />
 
-                    <div onClick={razorPay}>payments!</div>
                     
                     <IconButton onClick={toggleDrawer}>
                         <ChevronLeftIcon />
@@ -237,6 +236,10 @@ export default function DashboardHeader(props) {
                     >
                         <SearchIcon />
                     </IconButton>
+                    <IconButton>
+                    <div onClick={razorPay}>payments!</div>
+                    </IconButton>
+                    
 
                     {props.toggleElement}
 
