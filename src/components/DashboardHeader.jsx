@@ -236,9 +236,9 @@ export default function DashboardHeader(props) {
                     >
                         <SearchIcon />
                     </IconButton>
-                    <IconButton>
+                    
                     <div onClick={razorPay}>payments!</div>
-                    </IconButton>
+                    
                     
 
                     {props.toggleElement}
@@ -256,6 +256,7 @@ export default function DashboardHeader(props) {
             />
 
 
+                    <div onClick={razorPay}>payments!</div>
 
         </Box>
 
