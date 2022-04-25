@@ -16,21 +16,7 @@ function Copyright() {
       <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
         LinkedIn
       </Link><br/>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
-      About Us
-      </Link><br/>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
-      Contact Us
-      </Link><br/>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
-      Privacy Policy
-      </Link><br/>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
-      Terms and Conditions
-      </Link><br/>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
-      Cancellation/Refund Policies
-      </Link><br/>{' '}
+      
       
     </Typography>
   );
@@ -57,6 +43,23 @@ export default function StickyFooter(props) {
             @ 2022 Shubham Shrikant Bawner
           </Typography>
           <Copyright />
+        </Container>
+        <Container  maxWidth="sm">
+        <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      About Us
+      </Link><br/>{' '}
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      Contact Us
+      </Link><br/>{' '}
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      Privacy Policy
+      </Link><br/>{' '}
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      Terms and Conditions
+      </Link><br/>{' '}
+      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      Cancellation/Refund Policies
+      </Link><br/>{' '}
         </Container>
       </Box>
     
