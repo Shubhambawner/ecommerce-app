@@ -305,7 +305,7 @@ function razorPay(props) {
         "name": "Shubham Bawner",
         "description": "Buy me a coffee!",
         // "image": logo,
-        "order_id": "order_JSNprsXwjjn8jW", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        // "order_id": "order_JSNprsXwjjn8jW", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response) {
             alert(response.razorpay_payment_id);
             alert(response.razorpay_order_id);
