@@ -32,6 +32,7 @@ import Body from './Body'
 
 import logo from '../images/logo.png'
 import CardMedia from '@mui/material/CardMedia';
+import LocalCafeIcon from '@mui/icons-material/LocalCafe';
 
 
 const drawerWidth = 240;
@@ -41,7 +42,7 @@ const drawerWidth = 240;
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-    zIndex: theme.zIndex.drawer ,
+    zIndex: theme.zIndex.drawer,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -58,7 +59,7 @@ const AppBar = styled(MuiAppBar, {
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
-    
+
         '& .MuiDrawer-paper': {
             position: 'relative',
             whiteSpace: 'nowrap',
@@ -86,18 +87,18 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function DashboardHeader(props) {
     const [open, setOpen] = React.useState(false);
-    const toggleDrawer = () => { 
+    const toggleDrawer = () => {
         let body = document.querySelector('#root > div > div > div > div:nth-child(3)')
         // if(!open) body.style.paddingLeft = drawerWidth
         // else  body.style.paddingLeft = `10vh`
-        if(open){ body.style.width = `calc(100% - 10vh)`;body.style.marginLeft = `10vh`; }
-        else { body.style.width = `calc(100% - ${drawerWidth})`;body.style.marginLeft = `${drawerWidth}px`; }
+        if (open) { body.style.width = `calc(100% - 10vh)`; body.style.marginLeft = `10vh`; }
+        else { body.style.width = `calc(100% - ${drawerWidth})`; body.style.marginLeft = `${drawerWidth}px`; }
         setOpen(!open);
     };
 
     let entryFunction = () => {
         if (localStorage.getItem('user')) {
-            localStorage.clear(); 
+            localStorage.clear();
             window.alert('logged out Successfully!')
             window.location.reload()
         }
@@ -114,23 +115,23 @@ export default function DashboardHeader(props) {
 
     const loadScript = (src) => {
         return new Promise((resolve) => {
-          const script = document.createElement("script");
-          script.src = src;
-          script.onload = () => {
-            resolve(true);
-          };
-          script.onerror = () => {
-            resolve(false);
-          };
-         document.body.appendChild(script);
-       });
-     };
-     
-     useEffect(() => {
+            const script = document.createElement("script");
+            script.src = src;
+            script.onload = () => {
+                resolve(true);
+            };
+            script.onerror = () => {
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
+    };
+
+    useEffect(() => {
         loadScript("https://checkout.razorpay.com/v1/checkout.js");
-     });
-     
-    
+    });
+
+
     return (
 
         <Box sx={{ display: 'flex' }}>
@@ -149,7 +150,7 @@ export default function DashboardHeader(props) {
                 >
                     <AutocompleteSearch items={props.items} itemLoader={props.itemLoader} searchName={searchName} />
 
-                    
+
                     <IconButton onClick={toggleDrawer}>
                         <ChevronLeftIcon />
                     </IconButton>
@@ -165,13 +166,13 @@ export default function DashboardHeader(props) {
                         </ListItemButton>
                         <ListItemButton onClick={() => { props.itemLoader.loadCart() }}>
                             <ListItemIcon>
-                                <Badge badgeContent={props.cartCount?props.cartCount: localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')).length:0} color="secondary">
+                                <Badge badgeContent={props.cartCount ? props.cartCount : localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')).length : 0} color="secondary">
                                     <ShoppingCartIcon />
                                 </Badge>
                             </ListItemIcon>
                             <ListItemText primary="Cart" />
                         </ListItemButton >
-                        <ListItemButton onClick={() => {  window.location.href =  '/checkout' }}>
+                        <ListItemButton onClick={() => { window.location.href = '/checkout' }}>
                             <ListItemIcon>
                                 <ShoppingCartCheckoutOutlinedIcon />
                             </ListItemIcon>
@@ -185,12 +186,12 @@ export default function DashboardHeader(props) {
                         </ListItemButton>
 
                         <Divider />
-                        <ListItemButton  onClick={() => { entryFunction() }}>
+                        <ListItemButton onClick={() => { entryFunction() }}>
                             <ListItemIcon >
 
                                 {entryIcon}
-                            </ListItemIcon> 
-                                <ListItemText  primary={localStorage.getItem('user') ? "log out" : "Log in"} />
+                            </ListItemIcon>
+                            <ListItemText primary={localStorage.getItem('user') ? "log out" : "Log in"} />
                         </ListItemButton>
 
 
@@ -253,77 +254,94 @@ export default function DashboardHeader(props) {
                         aria-label="open drawer"
                         onClick={toggleDrawer}
                         sx={{
-                            
+
                             ...(open && { display: 'none' }),
                         }}
                     >
                         <SearchIcon />
                     </IconButton>
-                    
-                    <div onClick={razorPay}>payments!</div>
-                    
-                    
+
+
+
 
                     {props.toggleElement}
 
+                    <IconButton
+                        edge="start"
+                        color="inherit"
+                        aria-label="Buy me a coffee!"
+                        onClick={razorPay}
+                        sx={{ ml: 1 }}
+                    >
+                        <LocalCafeIcon />
+                    </IconButton>
+
                 </Toolbar>
             </AppBar>
-            
+
 
             <Body
                 items={props.items} itemLoader={props.itemLoader}
                 action={props.items.length > 0 ? props.items[props.items.length - 1] : props.addToCart}
                 action2={props.addToCart}
                 auth={() => { props.auth() }}
-                
+
             />
 
 
-                    <div onClick={razorPay}>payments!</div>
+
 
         </Box>
 
     );
 }
 
-function razorPay(props){
-    
+function razorPay(props) {
+
     var options = {
-        "key": "rzp_live_jNCE92u6x56mmr", 
+        "key": "rzp_live_jNCE92u6x56mmr",
         "amount": "100", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
-        "name": "Acme Corp",
-        "description": "Test Transaction",
-        "image": "../images/logo.png",
-        // "order_id": "order_JRz1W9MF9xHEVV", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "handler": function (response){
+        "name": "Shubham Bawner",
+        "description": "Buy me a coffee!",
+        // "image": logo,
+        "order_id": "order_JSNprsXwjjn8jW", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response) {
             alert(response.razorpay_payment_id);
             alert(response.razorpay_order_id);
             alert(response.razorpay_signature)
         },
-        "prefill": {
-            "name": "Gaurav Kumar",
-            "email": "gaurav.kumar@example.com",
-            "contact": "9999999999"
-        },
-        "notes": {
-            "address": "Razorpay Corporate Office"
-        },
-        "theme": {
-            "color": "#3399cc"
-        }
+        // "prefill": {
+        //     "name": "Gaurav Kumar",
+        //     "email": "gaurav.kumar@example.com",
+        //     "contact": "9999999999"
+        // },
+        // "notes": {
+        //     "address": "Razorpay Corporate Office"
+        // },
+        // "theme": {
+        //     "color": "#3399cc"
+        // }
+
     };
     var rzp1 = new window.Razorpay(options);
-    rzp1.on('payment.failed', function (response){
-        console.log(response)
-            alert(response.error.code);
-            alert(response.error.description);
-            alert(response.error.source);
-            alert(response.error.step);
-            alert(response.error.reason);
-            alert(response.error.metadata.order_id);
-            alert(response.error.metadata.payment_id);
+    rzp1.on('payment.failed', function (response) {
+        console.log(JSON.stringify(response))
+        alert(response.error.code
+        +response.error.description
+        +response.error.source
+        +response.error.step
+        +response.error.reason
+        +response.error.metadata.order_id
+        +response.error.metadata.payment_id);
     });
+    rzp1.on('payment.success', function (response) {
+        console.log(JSON.stringify(response) + "success")
+        alert(response.code
+            +response.reason
+            +response.order_id
+            +response.payment_id);
+    })
     rzp1.open();
 }
 
@@ -357,3 +375,17 @@ function AutocompleteSearch(props) {
     );
 }
 
+/**
+ * {
+code: "BAD_REQUEST_ERROR"
+,description: "You may have cancelled the payment or there was a delay in response from the UPI app."
+,metadata:{
+payment_id: "pay_JSNZejMlepuGEO"
+},
+reason: "payment_cancelled"
+,source: "customer"
+,step: "payment_authentication"
+}
+
+ * 
+ */
