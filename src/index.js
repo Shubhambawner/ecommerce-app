@@ -7,6 +7,7 @@ import { Route, Link, BrowserRouter, Routes} from 'react-router-dom'
 
 import Checkout from './components/checkOut/Checkout.js'
 
+
 let APP = <Auth action={"log In"}/>
 const routs = (
   < BrowserRouter >

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -32,7 +33,10 @@ import Body from './Body'
 import logo from '../images/logo.png'
 import CardMedia from '@mui/material/CardMedia';
 
+
 const drawerWidth = 240;
+
+
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -108,6 +112,25 @@ export default function DashboardHeader(props) {
     if (props.action.name == "Cancell Order") { searchName = "Order history" }
     let DashboardHeaderName = searchName
 
+    const loadScript = (src) => {
+        return new Promise((resolve) => {
+          const script = document.createElement("script");
+          script.src = src;
+          script.onload = () => {
+            resolve(true);
+          };
+          script.onerror = () => {
+            resolve(false);
+          };
+         document.body.appendChild(script);
+       });
+     };
+     
+     useEffect(() => {
+        loadScript("https://checkout.razorpay.com/v1/checkout.js");
+     });
+     
+    
     return (
 
         <Box sx={{ display: 'flex' }}>
@@ -264,14 +287,15 @@ export default function DashboardHeader(props) {
 }
 
 function razorPay(props){
+    
     var options = {
-        "key": "rzp_test_sgJ0mLdehTD2jF", 
-        "amount": "500", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "key": "rzp_live_jNCE92u6x56mmr", 
+        "amount": "100", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         "currency": "INR",
         "name": "Acme Corp",
         "description": "Test Transaction",
-        "image": "https://example.com/your_logo",
-        // "order_id": "order_IluGWxBm9U8zJ8", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "image": "../images/logo.png",
+        // "order_id": "order_JRz1W9MF9xHEVV", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response){
             alert(response.razorpay_payment_id);
             alert(response.razorpay_order_id);
@@ -289,8 +313,9 @@ function razorPay(props){
             "color": "#3399cc"
         }
     };
-    var rzp1 = new Razorpay(options);
+    var rzp1 = new window.Razorpay(options);
     rzp1.on('payment.failed', function (response){
+        console.log(response)
             alert(response.error.code);
             alert(response.error.description);
             alert(response.error.source);
