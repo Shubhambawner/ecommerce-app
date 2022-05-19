@@ -2,20 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import Auth from './Auth';
-import Dashboard from './components/DashboardHeader';
-import { Route, Link, BrowserRouter, Routes} from 'react-router-dom'
+import { Router, Route, Link, BrowserRouter, Routes} from 'react-router-dom'
+
+import Static from './static/Static'
 
 import Checkout from './components/checkOut/Checkout.js'
-
 
 let APP = <Auth action={"log In"}/>
 const routs = (
   < BrowserRouter >
-     <Routes>
+    <Routes>
         <Route  exact path="/" element={<Auth  action={"log In"} />} />
         <Route path="/checkout" element={ <Checkout/> } />
-        {/* <Route path="/about" element={ AboutUs } /> */}
-     </Routes>
+        </Routes>
+        <Static/>
   </ BrowserRouter >
 );
 

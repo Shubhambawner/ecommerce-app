@@ -45,19 +45,19 @@ export default function StickyFooter(props) {
           <Copyright />
         </Container>
         <Container  maxWidth="sm">
-        <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+        <Link color="inherit" href="/static?page=aboutUs">
       About Us
       </Link><br/>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      <Link color="inherit" href="/static?page=contactUs">
       Contact Us
       </Link><br/>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      <Link color="inherit" href="/static?page=privacyPolicy">
       Privacy Policy
       </Link><br/>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      <Link color="inherit" href="/static?page=TermsAndConditions">
       Terms and Conditions
       </Link><br/>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      <Link color="inherit" href="/static?page=refundPolicies">
       Cancellation/Refund Policies
       </Link><br/>{' '}
         </Container>

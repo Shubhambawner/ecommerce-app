@@ -37,7 +37,7 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 const theme = createTheme();
 
-export default function Checkout() {
+export default function Checkout(props) {
 
   if(!localStorage.getItem('cart') || !localStorage.getItem('cart').length) { 
     window.alert('Your cart is empty, redirecting you to store');
@@ -46,6 +46,8 @@ export default function Checkout() {
   if(!localStorage.getItem('user') ) { 
     window.alert('unauthorised! , redirecting you to store');
   }
+
+  console.log(props)
 
   const [activeStep, setActiveStep] = React.useState(0);
 

@@ -290,13 +290,13 @@ export default function DashboardHeader(props) {
 
 
 
-
         </Box>
 
     );
 }
 
 function razorPay(props) {
+    let orderID = document.querySelector('#orderID').value
 
     var options = {
         "key": "rzp_live_jNCE92u6x56mmr",
@@ -304,8 +304,8 @@ function razorPay(props) {
         "currency": "INR",
         "name": "Shubham Bawner",
         "description": "Buy me a coffee!",
-        // "image": logo,
-        // "order_id": "order_JSNprsXwjjn8jW", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        // "image": logo,order_JV0Apcpe0f8Vx7
+        "order_id": orderID, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response) {
             alert(response.razorpay_payment_id);
             alert(response.razorpay_order_id);
