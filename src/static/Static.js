@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Suspense } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -19,8 +20,8 @@ import logo from '../images/logo.png'
 import PrivacyPolicy from './PrivacyPolicy.jsx';
 import TermsAndConditions from './TermsAndConditions.jsx';
 import UnderConstruction from './UnderConstruction.jsx';
-import elementFinder from './elementFinder.js';
 
+import Footer from '../components/Footer.jsx';
 let AppBarHeader = <AppBar style={{
     position: `inherit`
 
@@ -35,15 +36,15 @@ let AppBarHeader = <AppBar style={{
             alignItems: "center"
         }}>{window.innerWidth > 550 ?
             <Link href='/'>
-            <CardMedia style={{
-                height: "42px",
-                width: "200px"
-            }}
-                component="img"
-                alt="logo"
+                <CardMedia style={{
+                    height: "42px",
+                    width: "200px"
+                }}
+                    component="img"
+                    alt="logo"
 
-                image={logo}
-            /></Link> : <></>}
+                    image={logo}
+                /></Link> : <></>}
             <Typography
                 component="h1"
                 variant="h6"
@@ -69,15 +70,18 @@ export default function (props) {
     let page = searchParams.get("page");
     console.log(page)
 
+    const Module = React.lazy(() => import(`./${page}`));
+
     return <Routes>
 
         <Route path="/static/*" element={<>
             {AppBarHeader}
-            {elementFinder[page]?elementFinder[page]:<UnderConstruction/>}
+            <Suspense fallback={<div>Loading...</div>}>
+            <Module />
+            </Suspense>
+            <Footer/>
         </>
         } />
     </Routes>
-
-
 
 }

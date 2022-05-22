@@ -1,7 +1,7 @@
 export default function(){
-    return <section class="d-flex align-items-center mt-5">
-    <div class="container">
-        <h1 class="text-center mb-5  p-2 ">Terms &amp; Conditions</h1>
+    return <section className="d-flex align-items-center mt-5">
+    <div className="container">
+        <h1 className="text-center mb-5  p-2 ">Terms &amp; Conditions</h1>
         <h2>Terms And Conditions</h2>
         <h3>TERMS OF SERVICES</h3>
         <p>PLEASE READ THIS TERMS OF SERVICE AGREEMENT CAREFULLY, AS IT CONTAINS IMPORTANT INFORMATION REGARDING YOUR LEGAL RIGHTS AND REMEDIES.</p>

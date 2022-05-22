@@ -45,19 +45,19 @@ export default function StickyFooter(props) {
           <Copyright />
         </Container>
         <Container  maxWidth="sm">
-        <Link color="inherit" href="/static?page=aboutUs">
+        <Link color="inherit" href="/static?page=AboutUs">
       About Us
       </Link><br/>{' '}
-      <Link color="inherit" href="/static?page=contactUs">
+      <Link color="inherit" href="/static?page=ContactUs">
       Contact Us
       </Link><br/>{' '}
-      <Link color="inherit" href="/static?page=privacyPolicy">
+      <Link color="inherit" href="/static?page=PrivacyPolicy">
       Privacy Policy
       </Link><br/>{' '}
       <Link color="inherit" href="/static?page=TermsAndConditions">
       Terms and Conditions
       </Link><br/>{' '}
-      <Link color="inherit" href="/static?page=refundPolicies">
+      <Link color="inherit" href="/static?page=RefundPolicies">
       Cancellation/Refund Policies
       </Link><br/>{' '}
         </Container>
