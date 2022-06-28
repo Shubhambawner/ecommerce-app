@@ -1,3 +1,5 @@
+//* currently useless
+
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -22,7 +24,7 @@ import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCh
 // }
 
 
-export default function Header(props) {
+export default React.memo(function Header(props) {
     let searchName = "";
     if(props.action.name == "Add to Cart" ) searchName = "All products"
     if(props.action.name == "Remove" ) searchName = "Cart"
@@ -70,7 +72,7 @@ export default function Header(props) {
     </div>
     return header
 
-}
+})
 function AutocompleteSearch(props) {
     // console.log(props.items, "777777777")
     let temp = []

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Card from './Card'
 
-export default function Body(props) {
+export default React.memo(function Body(props) {
     // console.log(props.items, 'rrrrr')
     if (!props.items || props.items.length <= 1) {
         props.itemLoader.loadAllItems()
@@ -44,4 +44,4 @@ export default function Body(props) {
     )
 }
 
-
+)

@@ -85,7 +85,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 
-export default function DashboardHeader(props) {
+export default React.memo(function DashboardHeader(props) {
     const [open, setOpen] = React.useState(false);
     const toggleDrawer = () => {
         let body = document.querySelector('#root > div > div > div > div:nth-child(3)')
@@ -270,7 +270,7 @@ export default function DashboardHeader(props) {
                         edge="start"
                         color="inherit"
                         aria-label="Buy me a coffee!"
-                        onClick={razorPay}
+                        onClick={()=>{console.log('experimental feature');razorPay()}}
                         sx={{ ml: 1 }}
                     >
                         <LocalCafeIcon />
@@ -285,7 +285,7 @@ export default function DashboardHeader(props) {
                 action={props.items.length > 0 ? props.items[props.items.length - 1] : props.addToCart}
                 action2={props.addToCart}
                 auth={() => { props.auth() }}
-
+                loder={props.loder}
             />
 
 
@@ -293,10 +293,10 @@ export default function DashboardHeader(props) {
         </Box>
 
     );
-}
+})
 
 function razorPay(props) {
-    let orderID = document.querySelector('#orderID').value
+    // let orderID = document.querySelector('#orderID').value
 
     var options = {
         "key": "rzp_live_jNCE92u6x56mmr",
@@ -305,7 +305,7 @@ function razorPay(props) {
         "name": "Shubham Bawner",
         "description": "Buy me a coffee!",
         // "image": logo,order_JV0Apcpe0f8Vx7
-        "order_id": orderID, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        // "order_id": orderID, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response) {
             alert(response.razorpay_payment_id);
             alert(response.razorpay_order_id);

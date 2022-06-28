@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRef } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,6 +22,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 import { handleError } from './App';
+import Loder from './components/Loder'
 
 
 // import List from '@mui/material/List';
@@ -46,8 +48,10 @@ export default function TemporaryDrawer(props) {
 
   let userCheck = async (user) => {
     console.log(state)
+    loder.start()
     if (state.action == 'log In') {
       let result = await checkLogin(user)
+      loder.stop()
       if (result == 'Success') {
         console.log('ttttttt')
         setState({ ...state, 'right': false, Name: state.Name });
@@ -55,6 +59,7 @@ export default function TemporaryDrawer(props) {
     }
     else {
       let result = await checkSignUp(user)
+      loder.stop()
       if (result == 'Success') setState({ ...state, 'right': false, Name: state.Name });
     }
   }
@@ -172,7 +177,7 @@ export default function TemporaryDrawer(props) {
     // onClick={toggleDrawer(anchor, false)}
     // onKeyDown={toggleDrawer(anchor, false)}
     >
-      <LogInSide />
+      <LogInSide loder={loder}/>
     </Box>
   );
 
@@ -210,12 +215,21 @@ export default function TemporaryDrawer(props) {
     </IconButton>
 
 
+let loderRef = useRef(null)
+let loder = {}
+    loder.start = function(){
+        loderRef.current.start()
+    }
+    loder.stop = function(){
+        loderRef.current.stop()
+    }
 
   return (
-
+    <>
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <div>
+    <Loder ref={loderRef} />
 
 
           <React.Fragment key={'right'}>
@@ -228,11 +242,12 @@ export default function TemporaryDrawer(props) {
             </Drawer>
           </React.Fragment>
 
-          <App auth={() => { setState({ ...state, 'right': true, Name: state.Name }) }} toggleElement={toggleElement} />
+          <App ref={loderRef} auth={() => { setState({ ...state, 'right': true, Name: state.Name }) }} toggleElement={toggleElement} />
         </div>
 
       </ThemeProvider>
     </ColorModeContext.Provider>
+    </>
   );
 }
 
@@ -253,6 +268,7 @@ let checkLogin = async (user) => {
     redirect: 'follow'
   };
 
+  
   return await fetch("https://e-commerce-backend-123.herokuapp.com/users/login", requestOptions)
     .then(response => {
       if (response.ok){

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useRef } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -19,6 +20,7 @@ import Review from './Review';
 import logo from '../../images/logo.png'
 import CardMedia from '@mui/material/CardMedia';
 import NavigateBack from './NavigateBack'
+import Loder from '../Loder'
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
@@ -37,7 +39,7 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 const theme = createTheme();
 
-export default function Checkout(props) {
+export default React.memo(function Checkout(props) {
 
   if(!localStorage.getItem('cart') || !localStorage.getItem('cart').length) { 
     window.alert('Your cart is empty, redirecting you to store');
@@ -63,18 +65,28 @@ export default function Checkout(props) {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <AddressForm handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
+        return <AddressForm loder={loder} handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
       case 1:
-        return <PaymentForm  handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
+        return <PaymentForm loder={loder} handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
       case 2:
-        return <Review  handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
+        return <Review loder={loder} handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>;
       default:
         throw new Error('Unknown step');
     }
   }
   
+  let loder = {}
+    let loderRef = useRef(null)
+    loder.start = function(){
+        loderRef.current.start()
+    }
+    loder.stop = function(){
+        loderRef.current.stop()
+    }
 
   return (
+    <>
+    <Loder ref={loderRef}/>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       {/* <AppBar
@@ -170,5 +182,6 @@ export default function Checkout(props) {
         
       </Container>
     </ThemeProvider>
+    </>
   );
-}
+})

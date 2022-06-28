@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
 
-export default function AddressForm(props) {
+export default React.memo(function AddressForm(props) {
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -135,4 +135,4 @@ export default function AddressForm(props) {
             </FormControl>
         </React.Fragment>
     );
-}
+})

@@ -22,7 +22,7 @@ function Copyright() {
   );
 }
 
-export default function StickyFooter(props) {
+export default React.memo(function StickyFooter(props) {
   return (
     
       <Box
@@ -65,4 +65,4 @@ export default function StickyFooter(props) {
     
   );
 }
-
+)

@@ -9,7 +9,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import IconButton from '@mui/material/IconButton';
 
 
-export default function AlertDialog() {
+export default React.memo(function AlertDialog() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -63,4 +63,4 @@ export default function AlertDialog() {
       </Dialog>
     </div>
   );
-}
+})

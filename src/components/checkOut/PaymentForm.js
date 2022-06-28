@@ -8,7 +8,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 
-export default function PaymentForm(props) {
+export default React.memo(function PaymentForm(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -80,4 +80,4 @@ export default function PaymentForm(props) {
                 </Box>
     </React.Fragment>
   );
-}
+})

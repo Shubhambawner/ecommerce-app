@@ -23,14 +23,14 @@ const payments = [
   { name: 'Expiry date', detail: '04/2024' },
 ];
 
-export default function Review(props) {
+export default React.memo(function Review(props) {
   let products = localStorage.getItem('cart');
-if(!products){ 
-  window.alert('Your cart is empty')
-  window.location.href = '/'
+  if (!products) {
+    window.alert('Your cart is empty')
+    window.location.href = '/'
 
-};
-products = JSON.parse(products);
+  };
+  products = JSON.parse(products);
 
   return (
     <React.Fragment>
@@ -41,14 +41,14 @@ products = JSON.parse(products);
         {products.map((product) => (
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
             <ListItemText primary={product.title} secondary={product.description} />
-            <Typography variant="body2">{product.price?product.price:'500$'}</Typography>
+            <Typography variant="body2">{product.price ? product.price : '500$'}</Typography>
           </ListItem>
         ))}
 
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {products.length?`${products.length*500}$`:'500$'}
+            {products.length ? `${products.length * 500}$` : '500$'}
           </Typography>
         </ListItem>
       </List>
@@ -79,20 +79,26 @@ products = JSON.parse(products);
         </Grid>
       </Grid>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  {props.activeStep !== 0 && (
-                    <Button onClick={props.handleBack} sx={{ mt: 3, ml: 1 }}>
-                      Back
-                    </Button>
-                  )}
+        {props.activeStep !== 0 && (
+          <Button onClick={props.handleBack} sx={{ mt: 3, ml: 1 }}>
+            Back
+          </Button>
+        )}
 
-                  <Button
-                    variant="contained"
-                    onClick={()=>{placeOrders();props.handleNext() }}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    {'Place order'}
-                  </Button>
-                </Box>
+        <Button
+          variant="contained"
+          onClick={() => {
+            props.loder.start();
+            placeOrders()
+              .then(a => props.loder.stop())
+              .catch(e => { alert(e); props.loder.stop() });
+            props.handleNext()
+          }}
+          sx={{ mt: 3, ml: 1 }}
+        >
+          {'Place order'}
+        </Button>
+      </Box>
     </React.Fragment>
   );
-}
+})

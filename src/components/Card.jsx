@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import imageSample from "../images/p1.png";
 
-export default function ImgMediaCard(props) {
+export default React.memo(function ImgMediaCard(props) {
 //   console.log(props.action)
 
   let actionButton = (props.action.name=="Remove" || props.action.name=="Cancell Order" )
@@ -16,7 +16,7 @@ export default function ImgMediaCard(props) {
   
 
   return (
-    <Card style={{ transformOrigin: '0 0 0' }} sx={{  width: "25vw" , margin:"1.5vw", minWidth:200 }}>
+    <Card key={JSON.stringify(props.item)} style={{ transformOrigin: '0 0 0' }} sx={{  width: "25vw" , margin:"1.5vw", minWidth:200 }}>
       <CardMedia
         component="img"
         alt="green iguana"
@@ -39,4 +39,4 @@ export default function ImgMediaCard(props) {
     </Card>
   );
 }
-
+)

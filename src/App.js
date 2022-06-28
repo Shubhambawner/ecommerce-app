@@ -3,7 +3,8 @@ import './App.css';
 import Header from './components/DashboardHeader';
 import Footer from './components/Footer';
 import Body from './components/Body';
-import { useState } from 'react'
+import { useState, useRef } from 'react';
+import Loder from './components/Loder';
 
 import CheckOut from './components/checkOut/Checkout.js'
 
@@ -14,6 +15,7 @@ function App(props) {
     let [items, setItems] = useState(allItems)
     let [triger, setTriger] = useState(true)
     let [cartCount, setCartCount] = useState(0)
+    let [loding, setloding] = useState(false)
     let cart = []
     let allAvailableItems = []
 
@@ -81,8 +83,10 @@ function App(props) {
             redirect: 'follow'
         };
 
+        loder.start()
         await fetch("https://e-commerce-backend-123.herokuapp.com/orders/cancel", requestOptions)
             .then(response =>{ 
+                loder.stop()
                 if (!response.ok) {
                     console.log(response);
                     throw new Error(`Error! status: ${response.status}`);
@@ -117,8 +121,10 @@ function App(props) {
             redirect: 'follow'
         };
 
+        loder.start()
         fetch("https://e-commerce-backend-123.herokuapp.com/orders/place", requestOptions)
             .then(response =>{
+                loder.stop()
                 if (!response.ok) {
                     console.log(response);
                     throw new Error(`Error! status: ${response.status}`);
@@ -153,8 +159,10 @@ function App(props) {
                 redirect: 'follow'
             };
 
+            loder.start()
             await fetch("https://e-commerce-backend-123.herokuapp.com/products", requestOptions)
                 .then(allItems =>{
+                    loder.stop()
                     if (!allItems.ok) {
                         console.log(allItems);
                         throw new Error(`Error! status: ${allItems.status}`);
@@ -227,8 +235,10 @@ function App(props) {
             redirect: 'follow'
         };
 
+        loder.start()
         fetch("https://e-commerce-backend-123.herokuapp.com/orders", requestOptions)
             .then(historyItems =>{
+                loder.stop()
                 if (!historyItems.ok) {
                     console.log(historyItems);
                     throw new Error(`Error! status: ${historyItems.status}`);
@@ -251,13 +261,24 @@ function App(props) {
             .catch(error =>{ console.log('error', error);handleError(error)});
     }
 
+    let loder = {}
+    let loderRef = useRef(null)
+    loder.start = function(){
+        loderRef.current?.start()
+    }
+    loder.stop = function(){
+        loderRef.current?.stop()
+    }
+
         //setTimeout(()=>loadAllItems(), 1000)
         ;
     return (
         <div className="App">
             {/* <Header />
       <Login anchorButton="buy" action="log In" /> */}
+      <Loder ref={loderRef}/>
             <Header
+                loder={loder}
                 action={items.length > 0 ? items[items.length - 1] : addToCart}
                 itemLoader={itemLoader}
                 auth={() => { props.auth() }}
