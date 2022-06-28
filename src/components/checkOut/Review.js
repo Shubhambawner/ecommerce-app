@@ -41,14 +41,14 @@ export default React.memo(function Review(props) {
         {products.map((product) => (
           <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
             <ListItemText primary={product.title} secondary={product.description} />
-            <Typography variant="body2">{product.price ? product.price : '500$'}</Typography>
+            <Typography variant="body2">{(product.price ? product.price : '500$') +" ₹"}</Typography>
           </ListItem>
         ))}
 
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {products.reduce((acc, product) => acc + product.price, 0)}
+            {products.reduce((acc, product) => acc + product.price, 0)+" ₹"}
           </Typography>
         </ListItem>
       </List>
@@ -57,7 +57,7 @@ export default React.memo(function Review(props) {
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
+          <Typography gutterBottom>{JSON.parse(localStorage.user).user.name}</Typography>
           <Typography gutterBottom>{addresses.join(', ')}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
