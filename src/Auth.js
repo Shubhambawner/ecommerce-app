@@ -20,6 +20,8 @@ import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
+import { handleError } from './App';
+
 
 // import List from '@mui/material/List';
 // import Divider from '@mui/material/Divider';
@@ -251,7 +253,7 @@ let checkLogin = async (user) => {
     redirect: 'follow'
   };
 
-  return await fetch("https://e-commerce.urownsite.xyz/users/login", requestOptions)
+  return await fetch("https://e-commerce-backend-123.herokuapp.com/users/login", requestOptions)
     .then(response => {
       if (response.ok){
         //console.log(response.json()); 
@@ -269,8 +271,7 @@ let checkLogin = async (user) => {
       
       return 'Success'
     })
-    .catch(error => console.log('error', error));
-
+    .catch(error =>{ console.log('error', error);handleError(error)});
 
 }
 
@@ -290,7 +291,7 @@ let checkSignUp = async (user) => {
     redirect: 'follow'
   };
 
-  return await fetch("https://e-commerce.urownsite.xyz/users/signUp", requestOptions)
+  return await fetch("https://e-commerce-backend-123.herokuapp.com/users/signUp", requestOptions)
     .then(response =>{
       if (response.ok) window.alert('Sign Up successfull')
       else {
@@ -305,5 +306,5 @@ let checkSignUp = async (user) => {
       
       return 'Success'
     })
-    .catch(error => console.log('error', error));
+    .catch(error =>{ console.log('error', error);handleError(error)});
 }

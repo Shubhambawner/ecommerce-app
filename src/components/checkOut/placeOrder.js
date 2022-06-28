@@ -1,3 +1,5 @@
+import { handleError } from '../../App'
+
 let placeOneOrder = async function (item) {
     let authToken = checkToken()
     if (!authToken) {
@@ -21,7 +23,7 @@ let placeOneOrder = async function (item) {
 
     console.log(item, raw, '55555555')
 
-    fetch("https://e-commerce.urownsite.xyz/orders/place", requestOptions)
+    fetch("https://e-commerce-backend-123.herokuapp.com/orders/place", requestOptions)
     .then(response =>{
         if (!response.ok) {
             console.log(response);
@@ -31,7 +33,7 @@ let placeOneOrder = async function (item) {
     })
     .then(response => {
         return "Success"
-    }).catch(error => console.log('error', error));
+    }).catch(error =>{ console.log('error', error);handleError(error)});
 }
 
 const placeOrders = async function () {

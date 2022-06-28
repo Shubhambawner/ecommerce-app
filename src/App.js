@@ -81,7 +81,7 @@ function App(props) {
             redirect: 'follow'
         };
 
-        await fetch("https://e-commerce.urownsite.xyz/orders/cancel", requestOptions)
+        await fetch("https://e-commerce-backend-123.herokuapp.com/orders/cancel", requestOptions)
             .then(response =>{ 
                 if (!response.ok) {
                     console.log(response);
@@ -94,7 +94,7 @@ function App(props) {
                     window.alert("order cancelled successfully")
                     itemLoader.loadHistory();
                 
-            }).catch(error => console.log('error:', error));
+            }).catch(error =>{ console.log('error:', error); handleError(error)})
     }
 
     let placeOneOrder = {}
@@ -117,7 +117,7 @@ function App(props) {
             redirect: 'follow'
         };
 
-        fetch("https://e-commerce.urownsite.xyz/orders/place", requestOptions)
+        fetch("https://e-commerce-backend-123.herokuapp.com/orders/place", requestOptions)
             .then(response =>{
                 if (!response.ok) {
                     console.log(response);
@@ -127,7 +127,7 @@ function App(props) {
             .then(response => {
                 console.log(response, 'place order req ka response');
                 return response['status']
-            }).catch(error => console.log('error', error));
+            }).catch(error =>{ console.log('error', error);handleError(error)});
     }
 
     let checkOut = {}
@@ -153,7 +153,7 @@ function App(props) {
                 redirect: 'follow'
             };
 
-            await fetch("https://e-commerce.urownsite.xyz/products", requestOptions)
+            await fetch("https://e-commerce-backend-123.herokuapp.com/products", requestOptions)
                 .then(allItems =>{
                     if (!allItems.ok) {
                         console.log(allItems);
@@ -167,7 +167,7 @@ function App(props) {
                     allAvailableItems.push(addToCart)
                     setItems(allAvailableItems);
                 })
-
+                .catch(error =>{ console.log('error', error);handleError(error)});
             // console.log('aaaaaaaaaa')
         }
     }
@@ -227,7 +227,7 @@ function App(props) {
             redirect: 'follow'
         };
 
-        fetch("https://e-commerce.urownsite.xyz/orders", requestOptions)
+        fetch("https://e-commerce-backend-123.herokuapp.com/orders", requestOptions)
             .then(historyItems =>{
                 if (!historyItems.ok) {
                     console.log(historyItems);
@@ -236,7 +236,7 @@ function App(props) {
                   return  historyItems.json()
             })
             .then(historyItems => {
-                console.log(historyItems);
+                console.log(historyItems, '&&&&&&&&&&&&&&&&');
                 
                     historyItems = historyItems.data
                     historyItems = historyItems.map((item) => {
@@ -247,8 +247,10 @@ function App(props) {
                     historyItems.push(cancellOrder)
                     setItems(historyItems);
                 
-            }).catch(error => console.log('error', error));
+            })
+            .catch(error =>{ console.log('error', error);handleError(error)});
     }
+
         //setTimeout(()=>loadAllItems(), 1000)
         ;
     return (
@@ -277,9 +279,14 @@ function App(props) {
 }
 
 function checkToken() {
-    // console.log(localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')):false)
+    console.log(localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')):false)
     return localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).authorization ? JSON.parse(localStorage.getItem('user')).authorization : false
 }
 
 
 export default App;
+
+export function handleError(error) {
+    console.log(error.message);
+    window.alert(error.message+"\nPlease try again later! Mostly this is a network issue");
+}
