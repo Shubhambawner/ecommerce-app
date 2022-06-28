@@ -48,7 +48,7 @@ export default React.memo(function Review(props) {
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {products.length ? `${products.length * 500}$` : '500$'}
+            {products.reduce((acc, product) => acc + product.price, 0)}
           </Typography>
         </ListItem>
       </List>
