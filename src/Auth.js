@@ -242,7 +242,7 @@ let loder = {}
             </Drawer>
           </React.Fragment>
 
-          <App ref={loderRef} auth={() => { setState({ ...state, 'right': true, Name: state.Name }) }} toggleElement={toggleElement} />
+          <App auth={() => { setState({ ...state, 'right': true, Name: state.Name }) }} toggleElement={toggleElement} />
         </div>
 
       </ThemeProvider>

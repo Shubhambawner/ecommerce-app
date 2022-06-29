@@ -13,9 +13,9 @@ export default React.memo(function Body(props) {
     let cards = props.items.map((item) => {
         if (item.title) {
             return (
-                <Card item={item} action={props.action} action2={props.action2} key={Math.random()}/>
+                <Card item={item} action={props.action} action2={props.action2} key={JSON.stringify(item)}/>
             )
-        } else return (<></>)
+        } else return (<React.Fragment key={Math.random}></React.Fragment>)
     })
     cards.reverse()
     return (
