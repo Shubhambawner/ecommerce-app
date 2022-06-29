@@ -39,7 +39,7 @@ export default React.memo(function Review(props) {
       </Typography>
       <List disablePadding>
         {products.map((product) => (
-          <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
+          <ListItem key={JSON.stringify(product)} sx={{ py: 1, px: 0 }}>
             <ListItemText primary={product.title} secondary={product.description} />
             <Typography variant="body2">{(product.price ? product.price : '500$') +" ₹"}</Typography>
           </ListItem>
