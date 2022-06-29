@@ -19,7 +19,7 @@ import { Route, Routes, useSearchParams } from 'react-router-dom'
 import logo from '../images/logo.png'
 import PrivacyPolicy from './PrivacyPolicy.jsx';
 import TermsAndConditions from './TermsAndConditions.jsx';
-import UnderConstruction from './UnderConstruction.jsx';
+import PageErrorBoundary from './PageErrorBoundary.jsx';
 
 import Footer from '../components/Footer.jsx';
 let AppBarHeader = <AppBar style={{
@@ -76,10 +76,12 @@ export default function (props) {
 
         <Route path="/static/*" element={<>
             {AppBarHeader}
-            <Suspense fallback={<div>Loading...</div>}>
-            <Module />
-            </Suspense>
-            <Footer/>
+            <PageErrorBoundary>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <Module />
+                </Suspense>
+            </PageErrorBoundary>
+            <Footer />
         </>
         } />
     </Routes>
