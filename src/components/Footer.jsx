@@ -64,5 +64,5 @@ export default React.memo(function StickyFooter(props) {
       </Box>
     
   );
-}
+}, ()=>true
 )

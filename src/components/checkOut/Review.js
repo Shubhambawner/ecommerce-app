@@ -40,15 +40,15 @@ export default React.memo(function Review(props) {
       <List disablePadding>
         {products.map((product) => (
           <ListItem key={JSON.stringify(product)} sx={{ py: 1, px: 0 }}>
-            <ListItemText primary={product.title} secondary={product.description} />
-            <Typography variant="body2">{(product.price ? product.price : '500$') +" ₹"}</Typography>
+            <ListItemText primary={product.title} secondary={"quantity: "+product.inCart} />
+            <Typography variant="body2">{" ₹"+product.price +" x "+ product.inCart  }</Typography>
           </ListItem>
         ))}
 
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {products.reduce((acc, product) => acc + product.price, 0)+" ₹"}
+            {products.reduce((acc, product) => acc + product.price * product.inCart, 0) + " ₹"}
           </Typography>
         </ListItem>
       </List>

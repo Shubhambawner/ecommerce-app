@@ -355,7 +355,14 @@ function AutocompleteSearch(props) {
         temp2 = temp
         action = temp[temp.length - 1]
         temp.pop()
-        temp = temp.map(i => i.title);
+        let arr = []
+        for (let index = 0; index < temp.length; index++) {
+            const title = temp[index].title;
+            if(arr.indexOf(title)===-1){
+                arr.push(title)
+            }
+        }
+        temp = arr
     }
     return (
 
@@ -364,13 +371,13 @@ function AutocompleteSearch(props) {
             id="combo-box-demo"
             options={temp}
             onChange={(event, newValue) => {
-                // console.log(newValue, temp2);
-                let temp3 = temp2.filter((i) => { return i.title == newValue })
-                // console.log(temp3);
-                props.itemLoader.loadCustomItems([...temp3, action]);
+                console.log(newValue, temp2);
+                let temp3 = temp2.filter((i) => { return i.title.indexOf(newValue) > -1 })
+                console.log(temp3);
+                if(temp3.length>0)props.itemLoader.loadCustomItems([...temp3, action]);
             }}
             sx={{ width: "100%" }}
-            renderInput={(params) => <TextField {...params} label={`Search ${props.searchName}`} />}
+            renderInput={(params) => <TextField key={Math.random} {...params} label={`Search ${props.searchName}`} />}
         />
     );
 }

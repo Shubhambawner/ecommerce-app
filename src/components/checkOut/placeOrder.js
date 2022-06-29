@@ -41,16 +41,19 @@ const placeOrders = async function () {
     if (!authToken) {
         window.alert('unauthorised! please login from the store first')
         window.location.href = '/';
-    }    let cart = JSON.parse(localStorage.getItem('cart'))
+    }    
+    let cart = JSON.parse(localStorage.getItem('cart'))
     if (cart && cart.length > 0) {
         let status = "Failed";
         for (let i = 0; i < cart.length; i++) {
+            while(cart[i].inCart--)
             status = await placeOneOrder(cart[i])
         }
         if (status == "Failed") window.alert(`no order placed!`)
         else{
             window.alert(`Order for all items in the cart placed successfully!`)
             localStorage.removeItem('cart')
+            localStorage.removeItem('history')
         }
         
     }

@@ -17,7 +17,7 @@ function App(props) {
     let [cartCount, setCartCount] = useState(0)
     let [loding, setloding] = useState(false)
     let cart = []
-    let allAvailableItems = []
+    let allAvailableItems = useRef(null)
 
     let itemLoader = {}
 
@@ -26,10 +26,16 @@ function App(props) {
     addToCart.action = (item) => {
         if (checkToken()) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            item.inCart = true;
-            cart.push(item)
+            let cartItem = cart.find(i => i.id == item.id);
+            if (cartItem) {
+                cartItem.inCart += 1;
+            }
+            else {
+                item.inCart = 1;
+                cart.push(item);
+            }
             localStorage.setItem('cart', JSON.stringify(cart))
-            setCartCount(cart.length)
+            setCartCount(cart.reduce((a, c) => a + c.inCart, 0))
         }
         else props.auth()
     }
@@ -42,9 +48,9 @@ function App(props) {
             let cart = JSON.parse(localStorage.getItem('cart'))
             let temp = cart.length
             // cart = cart.filter((i) => { return JSON.stringify(item) != JSON.stringify(i) })
-            for(let i = 0; i<cart.length; i++){
-                if(JSON.stringify(item) == JSON.stringify(cart[i])){
-                    cart.splice(i,1)
+            for (let i = 0; i < cart.length; i++) {
+                if (JSON.stringify(item) == JSON.stringify(cart[i])) {
+                    cart.splice(i, 1)
                     break
                 }
             }
@@ -84,21 +90,23 @@ function App(props) {
         };
 
         loder.start()
-        await fetch("https://e-commerce-backend-123.herokuapp.com/orders/cancel", requestOptions)
-            .then(response =>{ 
-                loder.stop()
-                if (!response.ok) {
-                    console.log(response);
-                    throw new Error(`Error! status: ${response.status}`);
-                  }
-                return  response.json()
-            })
-            .then(response => {
-                
-                    window.alert("order cancelled successfully")
-                    itemLoader.loadHistory();
-                
-            }).catch(error =>{ console.log('error:', error); handleError(error)})
+        let response = await fetch("https://e-commerce-backend-123.herokuapp.com/orders/cancel", requestOptions)
+            .catch(error => { console.log('error:', error); handleError(error) })
+        // .then(response =>{ 
+        loder.stop()
+        if (!response.ok) {
+            console.log(response);
+            throw new Error(`Error! status: ${response.status}`);
+        }
+        response = response.json()
+        // })
+        // .then(response => {
+
+        localStorage.removeItem('history')
+        itemLoader.loadHistory();
+        window.alert("order cancelled successfully")
+
+        // })
     }
 
     let placeOneOrder = {}
@@ -123,17 +131,18 @@ function App(props) {
 
         loder.start()
         fetch("https://e-commerce-backend-123.herokuapp.com/orders/place", requestOptions)
-            .then(response =>{
+            .then(response => {
                 loder.stop()
                 if (!response.ok) {
                     console.log(response);
                     throw new Error(`Error! status: ${response.status}`);
-                  }
-                return  response.json()})
+                }
+                return response.json()
+            })
             .then(response => {
                 console.log(response, 'place order req ka response');
                 return response['status']
-            }).catch(error =>{ console.log('error', error);handleError(error)});
+            }).catch(error => { console.log('error', error); handleError(error) });
     }
 
     let checkOut = {}
@@ -145,7 +154,10 @@ function App(props) {
     }
 
     itemLoader.loadAllItems = async function () {
-        if (allAvailableItems.length > 1) setItems(allAvailableItems);
+        console.log('load all items',allAvailableItems.current)
+        if (allAvailableItems.current?.length > 0){ 
+            setItems(allAvailableItems.current)
+        }
         else {
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -161,26 +173,27 @@ function App(props) {
 
             loder.start()
             await fetch("https://e-commerce-backend-123.herokuapp.com/products", requestOptions)
-                .then(allItems =>{
+                .then(allItems => {
                     loder.stop()
                     if (!allItems.ok) {
                         console.log(allItems);
                         throw new Error(`Error! status: ${allItems.status}`);
-                      }
-                      return  allItems.json()
+                    }
+                    return allItems.json()
                 })
                 .then(allItems => {
                     console.log(allItems);
-                    allAvailableItems = allItems.data
-                    allAvailableItems.push(addToCart)
-                    setItems(allAvailableItems);
+                    allAvailableItems.current = allItems.data
+                    allAvailableItems.current.push(addToCart)
+                    setItems(allAvailableItems.current);
                 })
-                .catch(error =>{ console.log('error', error);handleError(error)});
+                .catch(error => { console.log('error', error); handleError(error) });
             // console.log('aaaaaaaaaa')
         }
     }
 
     itemLoader.loadCustomItems = async function (itemArray) {
+        console.log('load custom items', itemArray)
         setItems(itemArray);
     }
 
@@ -197,7 +210,7 @@ function App(props) {
             if (tempCart.length > 1) {
                 setItems(tempCart);
             }
-            
+
         }
     }
 
@@ -235,38 +248,45 @@ function App(props) {
             redirect: 'follow'
         };
 
-        loder.start()
-        fetch("https://e-commerce-backend-123.herokuapp.com/orders", requestOptions)
-            .then(historyItems =>{
-                loder.stop()
-                if (!historyItems.ok) {
-                    console.log(historyItems);
-                    throw new Error(`Error! status: ${historyItems.status}`);
-                  }
-                  return  historyItems.json()
-            })
-            .then(historyItems => {
-                console.log(historyItems, '&&&&&&&&&&&&&&&&');
-                
+        let historyItems = localStorage.getItem('history')
+        if (!historyItems || !historyItems.length) {
+            loder.start()
+            historyItems = await fetch("https://e-commerce-backend-123.herokuapp.com/orders", requestOptions)
+                .then(historyItems => {
+                    loder.stop()
+                    if (!historyItems.ok) {
+                        console.log(historyItems);
+                        throw new Error(`Error! status: ${historyItems.status}`);
+                    }
+                    return historyItems.json()
+                })
+                .then(historyItems => {
+                    console.log(historyItems, '&&&&&&&&&&&&&&&&');
+
                     historyItems = historyItems.data
                     historyItems = historyItems.map((item) => {
                         return { ...item.product, ...item }
                     })
                     console.log(historyItems, 'opopop');
-                    if(historyItems.length == 0) window.alert('No Orders Found')
-                    historyItems.push(cancellOrder)
-                    setItems(historyItems);
-                
-            })
-            .catch(error =>{ console.log('error', error);handleError(error)});
+                    if (historyItems.length == 0) window.alert('No Orders Found')
+                    return historyItems;
+                })
+                .catch(error => { console.log('error', error); handleError(error) });
+            localStorage.setItem('history', JSON.stringify(historyItems))
+            // setItems(historyItems);
+        }else{
+            historyItems = JSON.parse(historyItems)
+        }
+        historyItems.push(cancellOrder)
+        setItems(historyItems);
     }
 
     let loder = {}
     let loderRef = useRef(null)
-    loder.start = function(){
+    loder.start = function () {
         loderRef.current?.start()
     }
-    loder.stop = function(){
+    loder.stop = function () {
         loderRef.current?.stop()
     }
 
@@ -276,7 +296,7 @@ function App(props) {
         <div className="App">
             {/* <Header />
       <Login anchorButton="buy" action="log In" /> */}
-      <Loder ref={loderRef}/>
+            <Loder ref={loderRef} />
             <Header
                 loder={loder}
                 action={items.length > 0 ? items[items.length - 1] : addToCart}
@@ -300,7 +320,7 @@ function App(props) {
 }
 
 function checkToken() {
-    console.log(localStorage.getItem('user')?JSON.parse(localStorage.getItem('user')):false)
+    console.log(localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : false)
     return localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).authorization ? JSON.parse(localStorage.getItem('user')).authorization : false
 }
 
@@ -309,5 +329,5 @@ export default App;
 
 export function handleError(error) {
     console.log(error.message);
-    window.alert(error.message+"\nPlease try again later! Mostly this is a network issue");
+    window.alert(error.message + "\nPlease try again later! Mostly this is a network issue");
 }

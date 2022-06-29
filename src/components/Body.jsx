@@ -44,4 +44,8 @@ export default React.memo(function Body(props) {
     )
 }
 
+, (prevProps, nextProps) => {
+    console.log(prevProps, nextProps, 'rRRRRRRRRRRRRRRRRRRRRRRRRRrrrr')
+    return JSON.stringify(prevProps) == JSON.stringify(nextProps)
+}
 )

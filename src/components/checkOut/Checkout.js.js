@@ -84,6 +84,12 @@ export default React.memo(function Checkout(props) {
         loderRef.current.stop()
     }
 
+    let cart = JSON.parse(localStorage.getItem('cart'))
+    if(!cart || !cart.length) {
+        window.alert('Your cart is empty, redirecting you to store');
+        window.location.href = '/'
+    }
+
   return (
     <>
     <Loder ref={loderRef}/>

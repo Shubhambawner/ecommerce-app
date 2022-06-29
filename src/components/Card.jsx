@@ -31,8 +31,13 @@ export default React.memo(function ImgMediaCard(props) {
           {props.item.description}
         </Typography>
         <Typography variant="body3" color="green">
-          {props.item.price+" ₹"}
+          {"₹"+props.item.price+"  "}
         </Typography>
+        {
+          props.item.inCart?<Typography variant="body4" color="blue">
+          {" x"+props.item.inCart}
+        </Typography>:""
+        }
       </CardContent>
       <CardActions>
         {props.item.status=="Cancelled"&&!props.item.inCart
