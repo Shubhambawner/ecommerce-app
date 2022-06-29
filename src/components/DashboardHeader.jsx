@@ -134,7 +134,7 @@ export default React.memo(function DashboardHeader(props) {
 
     return (
 
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', zIndex:10, position: 'relative' }}>
             <Drawer variant="permanent" style={{
                 position: "fixed",
                 top: 0

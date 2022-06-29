@@ -10,10 +10,10 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" style={{paddingLeft:`padding-left: calc(10vw + 16px)`,}}>
       
-      <Link color="inherit" href="https://github.com/Shubhambawner">
+      <Link  variant="body3" style={{color: "#7d7d7d", }} href="https://github.com/Shubhambawner">
         Github
       </Link>{' '}
-      <Link color="inherit" href="https://www.linkedin.com/in/shubham-bawner-456131205/">
+      <Link  variant="body3" style={{color: "#7d7d7d", }} href="https://www.linkedin.com/in/shubham-bawner-456131205/">
         LinkedIn
       </Link><br/>{' '}
       
@@ -30,34 +30,37 @@ export default React.memo(function StickyFooter(props) {
           py: 3,
           px: 2,
           mt: 'auto',
+          display: 'flex',
+          justifyContent: 'center',
+          width: '100%',
           
           backgroundColor: (theme) =>
             theme.palette.mode === 'light'
               ? theme.palette.grey[200]
               : theme.palette.grey[800],
         }}
-        style={{paddingLeft:"calc(16px + 10vw)"}}
+        style={{paddingLeft:"calc(16px + 10vw)",zIndex: 100,position: 'relative'}}
       >
         <Container maxWidth="sm">
-          <Typography variant="body1" style={{color: "#7d7d7d"}}>
+          <Typography variant="body3" style={{color: "#7d7d7d"}}>
             @ 2022 Shubham Shrikant Bawner
           </Typography>
           <Copyright />
         </Container>
         <Container  maxWidth="sm">
-        <Link color="inherit" href="/static?page=AboutUs">
+        <Link  variant="body3" style={{color: "#7d7d7d", }} href="/static?page=AboutUs">
       About Us
       </Link><br/>{' '}
-      <Link color="inherit" href="/static?page=ContactUs">
+      <Link  variant="body3" style={{color: "#7d7d7d", }} href="/static?page=ContactUs">
       Contact Us
       </Link><br/>{' '}
-      <Link color="inherit" href="/static?page=PrivacyPolicy">
+      <Link  variant="body3" style={{color: "#7d7d7d", }} href="/static?page=PrivacyPolicy">
       Privacy Policy
       </Link><br/>{' '}
-      <Link color="inherit" href="/static?page=TermsAndConditions">
+      <Link  variant="body3" style={{color: "#7d7d7d", }} href="/static?page=TermsAndConditions">
       Terms and Conditions
       </Link><br/>{' '}
-      <Link color="inherit" href="/static?page=RefundPolicies">
+      <Link  variant="body3" style={{color: "#7d7d7d", }} href="/static?page=RefundPolicies">
       Cancellation/Refund Policies
       </Link><br/>{' '}
         </Container>
