@@ -269,7 +269,7 @@ let checkLogin = async (user) => {
   };
 
   
-  return await fetch("https://e-commerce-backend-123.herokuapp.com/users/login", requestOptions)
+  return await fetch("https://e-commercebackend.shubhambawner.repl.co/users/login", requestOptions)
     .then(response => {
       if (response.ok){
         //console.log(response.json()); 
@@ -307,7 +307,7 @@ let checkSignUp = async (user) => {
     redirect: 'follow'
   };
 
-  return await fetch("https://e-commerce-backend-123.herokuapp.com/users/signUp", requestOptions)
+  return await fetch("https://e-commercebackend.shubhambawner.repl.co/users/signUp", requestOptions)
     .then(response =>{
       if (response.ok) window.alert('Sign Up successfull')
       else {

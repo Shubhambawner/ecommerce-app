@@ -23,7 +23,7 @@ let placeOneOrder = async function (item) {
 
     console.log(item, raw, '55555555')
 
-    fetch("https://e-commerce-backend-123.herokuapp.com/orders/place", requestOptions)
+    fetch("https://e-commercebackend.shubhambawner.repl.co/orders/place", requestOptions)
     .then(response =>{
         if (!response.ok) {
             console.log(response);

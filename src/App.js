@@ -90,7 +90,7 @@ function App(props) {
         };
 
         loder.start()
-        let response = await fetch("https://e-commerce-backend-123.herokuapp.com/orders/cancel", requestOptions)
+        let response = await fetch("https://e-commercebackend.shubhambawner.repl.co/orders/cancel", requestOptions)
             .catch(error => { console.log('error:', error); handleError(error) })
         // .then(response =>{ 
         loder.stop()
@@ -130,7 +130,7 @@ function App(props) {
         };
 
         loder.start()
-        fetch("https://e-commerce-backend-123.herokuapp.com/orders/place", requestOptions)
+        fetch("https://e-commercebackend.shubhambawner.repl.co/orders/place", requestOptions)
             .then(response => {
                 loder.stop()
                 if (!response.ok) {
@@ -172,7 +172,7 @@ function App(props) {
             };
 
             loder.start()
-            await fetch("https://e-commerce-backend-123.herokuapp.com/products", requestOptions)
+            await fetch("https://e-commercebackend.shubhambawner.repl.co/products", requestOptions)
                 .then(allItems => {
                     loder.stop()
                     if (!allItems.ok) {
@@ -251,7 +251,7 @@ function App(props) {
         let historyItems = localStorage.getItem('history')
         if (!historyItems || !historyItems.length) {
             loder.start()
-            historyItems = await fetch("https://e-commerce-backend-123.herokuapp.com/orders", requestOptions)
+            historyItems = await fetch("https://e-commercebackend.shubhambawner.repl.co/orders", requestOptions)
                 .then(historyItems => {
                     loder.stop()
                     if (!historyItems.ok) {
